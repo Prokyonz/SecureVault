@@ -1,0 +1,126 @@
+<app-header [showSideBar]="true" title="{{ PageTitle }}" iconName="pi-arrow-left" leftIconName=""></app-header>
+<p-toast [breakpoints]="{'920px': { right: '0', left: '50'}}"></p-toast>
+
+<div class="container">
+    <!-- Basic Details Card -->
+    <div class="panel">
+        <div class="card custom-card">
+            <p-card>
+                <div class="form-content">
+                    <form #userForm="ngForm">
+                        <table class="form-table" [cellSpacing]="5">
+                            <tr *ngIf="!user.isAdmin">
+                                <td colspan="2" class="input-field">
+                                    <label for="name">Parent User</label>
+                                    <p-dropdown id="party" [(ngModel)]="user.parentUserId" name="user"
+                                        [options]="userList" optionLabel="fullName" optionValue="id"
+                                        placeholder="Search and select a user" [filter]="true" [showClear]="true"
+                                        filterBy="fullName" [required]="true" #party="ngModel"
+                                        [ngClass]="{'is-invalid': !user.isAdmin && (party.touched && party.invalid)}">
+                                    </p-dropdown>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="half-width">
+                                    <label for="firstName">First Name</label>
+                                    <input id="firstName" pInputText pKeyFilter="int" type="text" class="form-control"
+                                        name="firstName" [(ngModel)]="user.firstName" required #firstName="ngModel"
+                                        [ngClass]="{'is-invalid': firstName.touched && firstName.invalid}" />
+                                </td>
+                                <td class="half-width">
+                                    <label for="lastName">Last Name</label>
+                                    <input id="lastName" pInputText type="text" class="form-control" name="lastName"
+                                        [(ngModel)]="user.lastName" required #lastName="ngModel"
+                                        [ngClass]="{'is-invalid': lastName.touched && lastName.invalid}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="half-width">
+                                    <label for="mobile">Mobile</label>
+                                    <input id="mobile" pInputText pKeyFilter="int" type="number" class="form-control"
+                                        name="mobile" [(ngModel)]="user.mobileNo" required #mobileNo="ngModel"
+                                        [ngClass]="{'is-invalid': !user.isAdmin && (mobileNo.touched && mobileNo.invalid)}"
+                                        pattern="^\d{10}$" minlength="10" maxlength="10" />
+                                </td>
+                                <td class="half-width">
+                                    <label for="email">Email</label>
+                                    <input id="email" pInputText type="text" class="form-control" name="email"
+                                        [(ngModel)]="user.emailId" required #email="ngModel"
+                                        [ngClass]="{'is-invalid': email.touched && email.invalid}"
+                                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="input-field">
+                                    <label for="password">Password</label>
+                                    <input id="password" pInputText type="password" class="form-control" name="password"
+                                        [(ngModel)]="user.password" required #password="ngModel"
+                                        [ngClass]="{'is-invalid': password.touched && password.invalid}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="input-field">
+                                    <label for="password">Pin</label>
+                                    <input id="pin" pInputText pKeyFilter="int" type="number" class="form-control" name="pin"
+                                        [(ngModel)]="user.pin" 
+                                        pattern="^\d{4}$" minlength="4" maxlength="4"
+                                        required #pin="ngModel"
+                                        [ngClass]="{'is-invalid': pin.touched && pin.invalid}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="input-field">
+                                    <label for="name">POS</label><br />
+                                    <!-- <p-dropdown id="pos" [(ngModel)]="user.posId" name="user"
+                                        [options]="posList" optionLabel="posName" optionValue="id"
+                                        placeholder="Search and select a POS" [filter]="true" [showClear]="true"
+                                        filterBy="posName">
+                                    </p-dropdown> -->
+                                    <p-multiSelect id="pos" [(ngModel)]="selectedPosIds" name="posSelect" [options]="posList"
+                                        optionLabel="posName" optionValue="id" placeholder="Search and select POS"
+                                        [filter]="true" [showClear]="true" filterBy="posName" #posField="ngModel"
+                                        [ngClass]="{'is-invalid': posField.touched && posField.invalid}"
+                                        [maxSelectedLabels]="2"
+                                        [selectedItemsLabel]="selectedPosIds.length >= 2 ? (selectedPosIds.length + 1) + ' items selected' : ''">
+                                    </p-multiSelect>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="input-field">
+                                    <p-checkbox id="isAgent" [(ngModel)]="user.isAgent" name="isAgent" label="Agent"
+                                        [binary]="true"></p-checkbox>
+                                </td>
+                                <td class="input-field">
+                                    <p-checkbox id="isActive" [(ngModel)]="user.isActive" name="isActive"
+                                        label="Is Active" [binary]="true"></p-checkbox>
+                                </td>
+                            </tr>
+                            <!-- Permissions Multiselect Dropdown -->
+                            <tr *ngIf="!user.isAdmin">
+                                <td colspan="2" class="input-field">
+                                    <label for="permissions">Permissions</label>
+                                    <div class="multi-select">
+                                        <div *ngFor="let permission of permissionList" class="checkbox-item">
+                                            <input type="checkbox" [id]="'permission_' + permission.keyName"
+                                                [value]="permission.keyName" (change)="onPermissionChange($event)"
+                                                [checked]="isChecked(permission.keyName)" />
+                                            <label [for]="'permission_' + permission.keyName">{{ permission.displayName
+                                                }}</label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </p-card>
+        </div>
+    </div>
+
+    <p-button [label]="isEditMode ? 'Update' : 'Submit'" (onClick)="showDetails()" icon="pi pi-check"
+        [disabled]="userForm.invalid ?? false"></p-button>
+</div>
+
+<div class="progress-spinner" *ngIf="loading">
+    <p-progressSpinner strokeWidth="4" styleClass="w-3rem h-3rem"></p-progressSpinner>
+</div>

@@ -1,0 +1,105 @@
+<!-- <app-header [showSideBar]="true" title="{{ PageTitle }}" iconName="pi-arrow-left" leftIconName=""></app-header> -->
+<app-header (onClickMainIcon) = "myfunction()" iconName="pi-arrow-left" leftIconName="{{isSaveButton ? '' : 'pi-plus'}}" (onClickLeftIcon)="onAddIconClick();" title="{{ PageTitle }}"></app-header>
+<p-toast [breakpoints]="{'920px': { right: '0', left: '50'}}"></p-toast>
+
+<div class="full-screen-card-container" *ngIf="!isSaveButton">  <!-- Adjust the condition as needed -->
+  <div *ngIf="itemData?.length === 0" class="no-data">
+    No item data found.
+  </div>
+  
+  <div *ngFor="let item of itemData" class="customer-card">
+    <div class="card-header">
+      <p-checkbox id="isActiveList" [(ngModel)]="item.isActive" name="isActiveList" 
+      [binary]="true" (onChange)="onCheckChange($event, item)"></p-checkbox>
+      {{ item.name }}
+    </div>
+    <div class="card-body">
+      <div><strong>{{ item.description }}</strong></div>
+    </div>
+
+    <div class="action-icons">
+      <i class="pi pi-pencil edit-icon" [routerLink]="['/additem', item.id]" title="Edit" style="cursor: pointer;"></i>
+      <i class="pi pi-times delete-icon" (click)="deleteItem(item)" title="Delete" style="cursor: pointer;"></i>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="isSaveButton">
+  <form #addItemForm="ngForm">
+    <!-- Item Name Input -->
+    <div class="form-group">
+      <label for="itemName">Item Name</label>
+      <input
+        type="text"
+        id="itemName"
+        class="form-control"
+        [(ngModel)]="item.name"
+        name="itemName"
+        required
+        #itemName="ngModel"
+        [ngClass]="{'is-invalid': itemName.invalid && itemName.touched}"
+      />
+    </div>
+
+    <!-- Item Description Input -->
+    <div class="form-group">
+      <label for="itemDescription">Item Description</label>
+      <input
+        type="text"
+        id="description"
+        class="form-control"
+        [(ngModel)]="item.description"
+        name="itemDescription"
+      />
+    </div>
+
+    <!-- HSN Code Input -->
+    <div class="form-group">
+      <label for="hsnCode">HSN Code</label>
+      <input
+        type="text"
+        id="hsnCode"
+        class="form-control"
+        [(ngModel)]="item.hsnCode"
+        name="hsnCode"
+        required
+        #hsnCode="ngModel"
+        [ngClass]="{'is-invalid': hsnCode.invalid && hsnCode.touched}"
+      />
+    </div>
+
+    <!-- GST Percentage Input -->
+    <div class="form-group">
+      <label for="gstPercentage">GST Percentage</label>
+      <input
+        type="number"
+        id="gstPercentage"
+        class="form-control"
+        [(ngModel)]="item.gstPercentage"
+        name="gstPercentage"
+        required
+        min="0"
+        step="0.01"
+        #gstPercentage="ngModel"
+        [ngClass]="{'is-invalid': gstPercentage.invalid && gstPercentage.touched}"
+      />
+    </div>
+
+    <!-- Is Active Checkbox -->
+    <div class="form-group form-check">
+      <p-checkbox id="isAgent" [(ngModel)]="item.isActive" name="isActive" label="Is Active" [binary]="true"></p-checkbox>
+    </div>
+  </form>
+
+  <!-- Submit Button -->
+  <p-button 
+    [label]="isEditMode ? 'Update' : 'Submit'" 
+    (onClick)="showDetails()" 
+    icon="pi pi-check" 
+    [disabled]="addItemForm.invalid ?? false" 
+  ></p-button>
+</div>
+
+<div class="progress-spinner" *ngIf="loading">
+  <p-progressSpinner strokeWidth="4" styleClass="w-3rem h-3rem"></p-progressSpinner>
+</div>

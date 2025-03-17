@@ -1,0 +1,18 @@
+<div class="card flex justify-content-left" style="padding: 5px;">
+    <table style="width: 100%;">
+        <tr>                        
+            <td>   
+                <span style="bottom: 5px; position: relative;">Start Date</span><br/>                         
+                <p-calendar [(ngModel)]="startDate" [showIcon]="true" [touchUI]="true" [readonlyInput]="true" dateFormat="dd/mm/yy"></p-calendar>
+            </td>    
+            <td>
+                <span style="bottom: 5px; position: relative;">End Date</span><br/>                                                       
+                <p-calendar [(ngModel)]="endDate" [minDate]="startDate" [touchUI]="true" [readonlyInput]="true" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+            </td>
+            <td style="padding: 10px; text-align: center;">
+                <span style="bottom: 5px; position: relative;"></span><br/>
+                <p-button (onClick)="onClick()" icon="pi pi-check" styleClass="p-button-rounded p-button-outlined"></p-button>
+            </td>                    
+        </tr>
+    </table>
+</div>

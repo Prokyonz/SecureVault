@@ -1,0 +1,93 @@
+<div *ngIf="!showCompanySelection" style="height: calc(100vh); background: #1c80cf;">
+  <span _ngcontent-hct-c17="" style="color: black;position: fixed;z-index: 9999;top: 95%;left: 85%;">1.0</span>
+  <div class="center">
+    <div class="card justify-content-center">
+      <div style="text-align: center;">
+        <img width="150px" height="150px" src="../../assets/Logo.png" />
+      </div>
+      <div class="container">
+        <p-card>
+          <ng-template pTemplate="header">
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; margin-left: 20px; margin-right: 20px;">
+              <h1>Login</h1> <!-- Title on the left -->
+              <div *ngIf="!isButtonDisabled" style="display: flex; gap: 10px;">
+                <p-button icon="pi pi-key" (click)="selectLoginType('password')" name="key" class="p-button-success custom-button">
+                </p-button>
+                <p-button icon="pi pi-lock" (click)="selectLoginType('pin')" name="pin" class="p-button-secondary custom-button">
+                </p-button>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template pTemplate="content">
+            <form [formGroup]="loginForm">
+              <table style="width: 100%;" [cellPadding]="5">
+                <!-- <tr *ngIf="loginType === 'pin'">
+                  <td style="text-align: center; padding-bottom: 50px;">
+                    <div style="position: relative;">
+                      <span *ngIf="loginForm.controls['username'].value"
+                        style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: white; padding: 0 5px;">
+                        <h1>{{loginForm.controls['username'].value}}</h1>
+                      </span>
+                    </div>
+                  </td>
+                </tr> -->
+                <tr *ngIf="loginType === 'password'">
+                  <td>
+                    <span style="bottom: 5px; position: relative;">Username</span><br />
+                    <input pInputText pKeyFilter="int" style="width: 100%;" formControlName="username" required />
+                  </td>
+                </tr>
+                <tr *ngIf="loginType === 'password'">
+                  <td>
+                    <span style="bottom: 5px; position: relative;">Password</span><br />
+                    <input type="password" pPassword [feedback]="false" formControlName="password"
+                      style="width: 100%;" />
+                  </td>
+                </tr>
+                <tr *ngIf="loginType === 'pin'">
+                  <td>
+                    <span style="bottom: 5px; position: relative;">PIN</span><br />
+                    <div style="display: flex; justify-content: space-between; gap: 10px;">
+                      <input pInputText pKeyFilter="int" type="password" formControlName="pin1" maxlength="1"
+                        (input)="onPinInput($event, 'pin2')" style="width: 40px; text-align: center;" />
+                      <input pInputText pKeyFilter="int" type="password" formControlName="pin2" maxlength="1"
+                        (input)="onPinInput($event, 'pin3')" style="width: 40px; text-align: center;" />
+                      <input pInputText pKeyFilter="int" type="password" formControlName="pin3" maxlength="1"
+                        (input)="onPinInput($event, 'pin4')" style="width: 40px; text-align: center;" />
+                      <input pInputText pKeyFilter="int" type="password" formControlName="pin4" maxlength="1"
+                        style="width: 40px; text-align: center;" />
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngIf="loginType === 'password'">
+                  <td>
+                    <p-checkbox value="Remember password" inputId="rem" [(ngModel)]="rememberMe" [binary]="true"
+                      formControlName="rememberMe"></p-checkbox>
+                    <label for="rem" class="ml-2">Remember password</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p-button label="Login" (onClick)="onLogin();" icon="pi pi-check"></p-button>
+                  </td>
+                </tr>
+              </table>
+            </form>
+          </ng-template>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showCompanySelection" style="height: calc(100vh); background: #1c80cf;">
+  <div class="center" style="overflow-y: scroll;">
+    <app-companyselection></app-companyselection>
+  </div>
+</div>
+
+<div class="progress-spinner" *ngIf="loading">
+  <p-progressSpinner strokeWidth="4" styleClass="w-3rem h-3rem"></p-progressSpinner>
+</div>

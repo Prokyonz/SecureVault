@@ -1,0 +1,157 @@
+<app-header [showSideBar]="true" title="{{ PageTitle }}" iconName="pi-arrow-left" leftIconName=""></app-header>
+<p-toast [breakpoints]="{'920px': { right: '0', left: '50'}}"></p-toast>
+
+<div class="container">
+    <!-- Basic Details Card -->
+    <div class="panel">
+        <div class="card custom-card">
+            <p-card>
+                <ng-template pTemplate="header">
+                    <table class="table-header">
+                        <tr>
+                            <td>
+                                <b class="section-title">Basic Details</b>
+                            </td>
+                        </tr>
+                    </table>
+                </ng-template>
+                <div class="form-content">
+                    <form #customerForm="ngForm">
+                        <table class="form-table" [cellSpacing]="5">
+                            <tr>
+                                <td class="half-width">
+                                    <label for="firstName">First Name</label>
+                                    <input id="firstName" pInputText pKeyFilter="int" type="text" class="form-control"
+                                        name="firstName" [(ngModel)]="customerDetails.firstName" required
+                                        #firstName="ngModel"
+                                        [ngClass]="{'is-invalid': firstName.touched && firstName.invalid}" />
+                                </td>
+                                <td class="half-width">
+                                    <label for="lastName">Last Name</label>
+                                    <input id="lastName" pInputText type="text" class="form-control" name="lastName"
+                                        [(ngModel)]="customerDetails.lastName" required #lastName="ngModel"
+                                        [ngClass]="{'is-invalid': lastName.touched && lastName.invalid}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="input-field">
+                                    <label for="address">Address</label>
+                                    <textarea id="address" pInputTextarea rows="5" cols="30" class="form-control"
+                                        name="CustomerAddress" [(ngModel)]="customerDetails.address" required
+                                        #address="ngModel"
+                                        [ngClass]="{'is-invalid': address.touched && address.invalid}"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="input-field">
+                                    <label for="pincode">Pincode</label>
+                                    <input id="pincode" pInputText type="number" class="form-control"
+                                        name="CustomerPinCode" [(ngModel)]="customerDetails.pincode" required
+                                        #pincode="ngModel"
+                                        [ngClass]="{'is-invalid': pincode.touched && pincode.invalid}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="half-width">
+                                    <label for="mobile">Mobile</label>
+                                    <input id="mobile" pInputText type="number" class="form-control"
+                                        name="CustomerMobile" [(ngModel)]="customerDetails.mobileNo" required
+                                        #mobileNo="ngModel"
+                                        [ngClass]="{'is-invalid': mobileNo.touched && mobileNo.invalid}"
+                                        pattern="^\d{10}$" minlength="10" maxlength="10" />
+                                </td>
+                                <td class="half-width">
+                                    <label for="email">Email</label>
+                                    <input id="email" pInputText type="email" class="form-control" name="CustomerEmail"
+                                        [(ngModel)]="customerDetails.emailId" #email="ngModel"
+                                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="half-width">
+                                    <label for="aadhar">Aadharcard No</label>
+                                    <input id="aadhar" pInputText pKeyFilter="int" type="number" class="form-control"
+                                        name="CustomerAadharCardNo" [(ngModel)]="customerDetails.aadharNo" required
+                                        #aadharNo="ngModel"
+                                        [ngClass]="{'is-invalid': aadharNo.touched && aadharNo.invalid}"
+                                        pattern="^\d{12}$" minlength="12" maxlength="12" />
+                                </td>
+                                <td class="half-width">
+                                    <label for="pancard">Pancard No</label>
+                                    <input id="pancard" pInputText type="text" class="form-control"
+                                        name="CustomerPancardNo" [(ngModel)]="customerDetails.panNo" required
+                                        #panNo="ngModel" [ngClass]="{'is-invalid': panNo.touched && panNo.invalid}"
+                                        pattern="^[A-Z]{5}[0-9]{4}[A-Z]{1}$" minlength="10" maxlength="10" />
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </p-card>
+        </div>
+
+        <!-- Documents Card -->
+        <div class="card custom-card">
+            <p-card>
+                <ng-template pTemplate="header">
+                    <table class="table-header">
+                        <tr>
+                            <td>
+                                <b class="section-title">Documents</b>
+                            </td>
+                        </tr>
+                    </table>
+                </ng-template>
+                <div class="form-content">
+                    <table class="form-table" [cellSpacing]="5">
+                        <tr class="document-row">
+                            <td class="document-field">
+                                <label>Aadharcard Front</label><br />
+                                <p-button [label]="customerDetails.aadharImageFrontData === '' ? 'Upload' : 'View'"
+                                    (onClick)="triggerFileInput('AadharcardFront')"></p-button>
+                            </td>
+                            <td class="document-field">
+                                <label>Aadharcard Back</label><br />
+                                <p-button [label]="customerDetails.aadhbarImageBackData === '' ? 'Upload' : 'View'"
+                                    (onClick)="triggerFileInput('AadharcardBack')"></p-button>
+                            </td>
+                        </tr>
+                        <tr class="document-row">
+                            <td class="document-field">
+                                <label>Pancard</label><br />
+                                <p-button [label]="customerDetails.panImageData === '' ? 'Upload' : 'View'"
+                                    (onClick)="triggerFileInput('Pancard')"></p-button>
+                            </td>
+                            <td class="document-field">
+                                <label>Signature</label><br />
+                                <p-button [label]="customerDetails.signatureImageData === '' ? 'Upload' : 'View'"
+                                    (onClick)="triggerFileInput('Signature')"></p-button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <p-dialog header="Upload Image" [(visible)]="isUploadVisible" [modal]="true" [responsive]="true"
+                    (onHide)="onDialogClose()">
+                    <!-- <app-upload></app-upload> -->
+                    <div class="upload-container">
+                        <div>
+                            <img *ngIf="imageUrl" [src]="imageUrl" alt="Uploaded Image"
+                                style="max-width: 300px; max-height: 300px;" />
+                        </div>
+                        <p-button label="Retake" (onClick)="onUpload(true)"></p-button>
+                    </div>
+                </p-dialog>
+            </p-card>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <p-button [label]="isEditMode ? 'Update' : 'Submit'" (onClick)="showDetails()" icon="pi pi-check"
+        [disabled]="customerForm.invalid ?? false"></p-button>
+</div>
+
+<input type="file" id="fileInput" (change)="onUpload(true)" accept="image/*" style="display: none;" />
+
+<div class="progress-spinner" *ngIf="loading">
+    <p-progressSpinner strokeWidth="4" styleClass="w-3rem h-3rem"></p-progressSpinner>
+</div>

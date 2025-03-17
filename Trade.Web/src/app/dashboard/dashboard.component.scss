@@ -1,0 +1,173 @@
+// .panel {
+//     height: calc(100vh - 200px);
+//     padding: 8px;
+//     overflow: scroll;
+//     -webkit-overflow-scrolling: touch;
+//   }
+  
+//   .custom-design {
+//     width: 100%;
+//     border-color: rgb(57, 145, 216);
+//     border-left-width: 4px;
+//     border-left-style: solid;
+//     box-shadow: 3px 5px #00000005, 0 0 2px #0000000d, 0 1px 4px #00000014 !important;
+//   }
+  
+//   .amount {
+//     font-size: 35px;
+//   }
+  
+//   .header {
+//     font-size: 30px;
+//     font-weight: 700;
+//     margin-bottom: 0.5rem;
+//   }
+  
+//   .custom-amount {font-size: 30px;
+//   }
+  
+//   .dashboard-container {
+//     display: flex;
+//     flex-wrap: wrap;
+//     justify-content: center; /* Center items horizontally */
+//   }
+  
+//   .dashboard-row {
+//     width: 100%;
+//     display: flex;
+//     justify-content: space-between; /* Distribute items evenly */
+//   }
+  
+//   .dashboard-cell {
+//     flex: 1;
+//     margin-bottom: 20px; /* Adjust spacing between rows */
+//   }
+  
+//   .dashboard-cell-center {
+//     flex: 1;
+//     display: flex;
+//     justify-content: center; /* Center items horizontally */
+//   }
+  
+//   .dashboard-item {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     text-decoration: none;
+//   }
+  
+//   .dashboard-label {
+//     font-size: 1rem;
+//     font-weight: bold;
+//   }
+  
+//   .dashboard-icon {
+//     color: #2196F3; /* Change the color of the dashboard icon */
+//     font-size: 3rem;
+//     margin-bottom: 10px;
+//   }
+  
+//   .big-icon i {
+//     font-size: 2rem;
+//     transition: transform 0.2s ease;
+//   }
+  
+//   .big-icon i:hover {
+//     transform: scale(2);
+//   }
+  
+//   @media (max-width: 768px) {
+//     .dashboard-cell {
+//       width: 50%; /* Two items per row on smaller screens */
+//     }
+//   }
+  
+//   .logout-button {
+//     margin-left: 1rem; /* Adjust margin as needed */
+//   }
+  
+//   .logout-button:hover {
+//     color: red; /* Change color on hover if desired */
+//   }
+  
+/* General Panel Styling */
+.panel {
+    padding: 20px;
+    padding-top: 0;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    max-height: calc(100vh - 50px); /* Adjust based on the header or other elements */
+    overflow-y: auto;
+}
+
+/* Group Label */
+.group-label {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    margin-top: 10px;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjusted for smaller cards */
+    gap: 15px; /* Reduced spacing between cards */
+    margin-top: 10px;
+}
+
+/* Dashboard Card */
+.dashboard-card {
+    border-radius: 8px;
+    text-align: center;
+    padding: 7px; /* Reduced padding for smaller size */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 16px; /* Smaller font */
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Dashboard Item */
+.dashboard-item {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Dashboard Icon */
+.dashboard-icon .pi{
+    font-size: 24px !important;/* Adjusted for smaller icons */
+    margin-bottom: 10px; /* Reduced margin */
+}
+
+/* Dashboard Label */
+.dashboard-label .pi{
+    font-size: 14px !important; /* Smaller label font */
+    font-weight: bold;
+}
+
+/* Mobile-Friendly Adjustments */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Smaller cards on mobile */
+    }
+    .dashboard-icon {
+        font-size: 32px !important; /* Smaller icons for mobile */
+    }
+    .dashboard-label {
+        font-size: 18px !important; /* Smaller labels for mobile */
+    }
+}
+
+

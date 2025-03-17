@@ -1,0 +1,246 @@
+<app-header [showSideBar]="true" title="{{ PageTitle }}" iconName="pi-arrow-left" leftIconName=""></app-header>
+<p-toast [breakpoints]="{'920px': { right: '0', left: '50'}}"></p-toast>
+<div class="container">
+  <form #saleForm="ngForm">
+    <div class="stepper">
+      <div class="step" [class.active]="currentStep === 1">
+        <div class="circle" (click)="currentStep = 1">1</div>
+        <div class="label">Fill Details</div>
+      </div>
+      <div class="line" [class.active]="currentStep >= 2"></div>
+      <div class="step" [class.active]="currentStep === 2" [class.disabled]="saleForm.invalid ?? false">
+        <div class="circle" (click)="(currentStep = 2)">2</div>
+        <div class="label">Preview</div>
+      </div>
+    </div>
+
+    <!-- Form Section -->
+    <div style="height: calc(76vh); overflow-y:scroll; overflow-x: hidden;" *ngIf="currentStep === 1" class="form-container">
+      <!-- Sale Header Section -->
+      <div class="form-group">
+        <label for="party">POS</label>
+        <p-dropdown id="pos" [(ngModel)]="saleData.posId" name="user" [options]="posList" optionLabel="posName"
+          optionValue="id" placeholder="Search and select a POS" [filter]="true" [showClear]="true" filterBy="posName"
+          [required]="true" #pos="ngModel" [ngClass]="{'is-invalid': pos.touched && pos.invalid}">
+        </p-dropdown>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Date</label>
+        <p-calendar name="date" [(ngModel)]="saleData.invoiceDate" [showIcon]="true" [touchUI]="true"
+          [readonlyInput]="true" dateFormat="dd/mm/yy"></p-calendar>
+      </div>
+
+      <div class="form-group">
+        <label for="party">Select Party</label>
+        <p-dropdown id="party" [(ngModel)]="saleData.customerId" name="party" [options]="parties" optionLabel="fullName"
+          optionValue="id" placeholder="Search and select a party" [filter]="true" [showClear]="true"
+          filterBy="fullName" [required]="true" #party="ngModel"
+          [ngClass]="{'is-invalid': party.touched && party.invalid}">
+        </p-dropdown>
+      </div>
+
+      <!-- Items Section - Card View -->
+      <div class="items-container">
+        <div *ngFor="let item of saleData.salesDetails; let i = index" class="item-card">
+          <p-card [header]="'Item ' + (i + 1)" class="mb-3">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="itemName{{i}}">Item Name</label>
+                <!-- <input type="text" [(ngModel)]="item.itemName" name="itemName{{i}}" class="form-control" placeholder="Item Name" required> -->
+                <p-dropdown id="itemName{{i}}" [(ngModel)]="item.rowNum" name="itemName{{i}}" [options]="itemsList"
+                  optionLabel="stockDisplayName" optionValue="rowNum" placeholder="Select Item" [filter]="true"
+                  [showClear]="true" filterBy="name" (onChange)="onItemSelect(item)">
+                </p-dropdown>
+              </div>
+
+              <!-- Flexbox for Qty and Rate on the same line -->
+              <div class="form-row">
+                <div class="col-6">
+                  <label for="qty{{i}}">Quantity</label><br />
+                  <input type="number" [(ngModel)]="item.carratQty" name="qty{{i}}" class="form-control"
+                    placeholder="Qty" (input)="restrictDecimalInput($event,item)" required
+                    (ngModelChange)="calculateTotal(item)">
+                </div>
+                <div class="col-6">
+                  <label for="rate{{i}}">Rate</label><br />
+                  <input type="number" [(ngModel)]="item.rate" name="rate{{i}}" class="form-control" placeholder="Rate"
+                    required (ngModelChange)="calculateTotal(item)" [disabled]="true">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="total{{i}}">Amount</label>
+                <input type="number" [(ngModel)]="item.total" name="total{{i}}" class="form-control" placeholder="Total"
+                  [disabled]="true">
+              </div>
+
+              <div class="form-row">
+                <div class="col-6">
+                  <label for="sgst{{i}}">SGST</label>
+                  <input type="number" [(ngModel)]="item.sgst" name="sgst{{i}}" class="form-control" placeholder="SGST"
+                    required (ngModelChange)="calculateTotal(item)" [disabled]="true">
+                </div>
+                <div class="col-6">
+                  <label for="cgst{{i}}">CGST</label>
+                  <input type="number" [(ngModel)]="item.cgst" name="cgst{{i}}" class="form-control" placeholder="CGST"
+                    required (ngModelChange)="calculateTotal(item)" [disabled]="true">
+                </div>
+              </div>
+
+              <div class="form-group" style="display: none;">
+                <label for="igst{{i}}">IGST</label>
+                <input type="number" [(ngModel)]="item.igst" name="igst{{i}}" class="form-control" placeholder="IGST"
+                  required (ngModelChange)="calculateTotal(item)" [disabled]="true">
+              </div>
+
+              <div class="form-group">
+                <label for="grandTotal{{i}}">Total</label>
+                <input type="number" [(ngModel)]="item.totalAmount" name="grandTotal{{i}}" class="form-control"
+                  placeholder="Grand Total" [readonly]="true" [disabled]="true">
+              </div>
+
+              <!-- Edit and Delete Actions -->
+              <div class="action-icons">
+                <!-- <i class="pi pi-pencil edit-icon" (click)="editItem(i)" title="Edit"></i> -->
+                <i class="pi pi-times delete-icon" (click)="deleteItem(i)" title="Delete"></i>
+              </div>
+            </div>
+          </p-card>
+        </div>
+      </div>
+      <button type="button" (click)="addItem()" class="btn btn-secondary btn-sm">Add Item</button>
+
+      <div class="form-group">
+        <label for="billAmount">Bill Amount</label>
+        <input type="number" id="amount" [(ngModel)]="saleData.amount" name="amount" class="form-control"
+          placeholder="0" [disabled]="true">
+      </div>
+
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-12">
+            <div *ngFor="let payment of saleData.amountReceived; let i = index">
+              <label for="paymentModes" class="mb-3">Payment {{i + 1}}</label>
+              <div class="form-row">
+                <div class="col-6">
+                  <label for="paymentMode{{i}}">Payment Mode</label>
+                  <select [(ngModel)]="payment.paymentMode" name="paymentMode{{i}}" class="form-control"
+                    (change)="onPaymentModeChange(payment, i)" required [disabled]="payment.paymentMode === 'Cash'">
+                    <option value="Creditcard">Creditcard</option>
+                    <option *ngIf="payment.paymentMode === 'Cash'" value="Cash">Cash</option>
+                    <option value="Debitcard">Debitcard</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col-6" *ngIf="payment.paymentMode === 'Creditcard' || payment.paymentMode === 'Debitcard'">
+                  <label for="creditCardNo{{i}}">Card No.</label>
+                  <input type="text" [(ngModel)]="payment.cardNo" name="creditCardNo{{i}}" class="form-control"
+                    placeholder="Enter card number">
+                </div>
+
+                <div class="col-6" *ngIf="payment.paymentMode === 'Creditcard' || payment.paymentMode === 'Debitcard'">
+                  <label for="nameOnCard{{i}}">Name on Card</label>
+                  <input type="text" [(ngModel)]="payment.nameOnCard" name="nameOnCard{{i}}" class="form-control"
+                    placeholder="Enter name on card">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col-6">
+                  <label for="amount{{i}}">Amount</label>
+                  <input type="number" [(ngModel)]="payment.amount" name="amount{{i}}" class="form-control"
+                    placeholder="Enter amount" required [disabled]="payment.paymentMode === 'Cash'"
+                    (ngModelChange)="onAmountChange(payment, i)"
+                    [ngClass]="{'is-invalid': isFieldInvalid(payment,'payAmount')}">
+                </div>
+              </div>
+
+              <div class="action-icons" *ngIf="payment.paymentMode != 'Cash'">
+                <i class="pi pi-times delete-icon" (click)="removePayment(i)" title="Delete"></i>
+              </div>
+            </div>
+
+            <div class="form-row mt-2">
+              <button type="button" class="btn btn-primary" (click)="addPayment()">Add Payment</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <!-- <p-button label="Submit" (onClick)="showDetails()" icon="pi pi-check"
+          [disabled]="saleForm.invalid ?? false"></p-button> -->
+        <p-button label="Preview" icon="pi pi-eye" (onClick)="goToPreview()"
+          [disabled]="saleForm.invalid ?? false"></p-button>
+      </div>
+    </div>
+
+    <!-- Preview Section -->
+    <div style="height: calc(76vh); overflow:scroll;" *ngIf="currentStep === 2" class="preview-container">
+      <h3>Preview Sale Details</h3>
+      <div class="preview-details">
+        <p><strong>POS:</strong> {{ getPosName(saleData.posId) }}</p>
+        <p><strong>Date:</strong> {{ saleData.invoiceDate | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Party:</strong> {{ getPartyName(saleData.customerId) }}</p>
+        <h4>Items:</h4>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 12%;">Item</th>
+              <th style="width: 25%;">Quantity</th>
+              <th style="width: 28%;">Rate</th>
+              <th style="width: 35%;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of saleData.salesDetails">
+              <td>{{ getItemName(item.rowNum) }}</td>
+              <td>{{ item.carratQty }}</td>
+              <td>{{ item.rate }}</td>
+              <td>{{ item.totalAmount }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Payment:</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 12%;">Type</th>
+              <th style="width: 25%;">No</th>
+              <th style="width: 28%;">Card No</th>
+              <th style="width: 35%;">Paid Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of saleData.amountReceived">
+              <td>
+                <i [class]="item.paymentMode === 'Cash' ? 'fas fa-money-bill-wave' : 'fas fa-credit-card'"
+                  [style.color]="item.paymentMode === 'Cash' ? 'green' : '#007bff'">
+                </i>
+              </td>
+              <td>{{ item.paymentMode }}</td>
+              <td>{{ item.cardNo ? item.cardNo.slice(-4) : '-' }}</td>
+              <td>{{ item.amount | currency: 'INR' }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><strong>Total Amount:</strong> {{ saleData.amount }}</p>
+      </div>
+
+      <div class="form-group  d-flex" style="display: flex;gap: 5px;">
+        <p-button class="col-6 back-button" label="Back" (onClick)="(currentStep = 1)"
+          icon="pi pi-arrow-left"></p-button>
+        <p-button class="col-6" [label]="isEditMode ? 'Update' : 'Submit'" (onClick)="showDetails()"
+          icon="pi pi-check"></p-button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="progress-spinner" *ngIf="loading">
+  <p-progressSpinner strokeWidth="4" styleClass="w-3rem h-3rem"></p-progressSpinner>
+</div>

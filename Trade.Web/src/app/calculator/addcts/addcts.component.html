@@ -1,0 +1,61 @@
+<!-- <div>
+    <label>SR No:</label>
+    <input pInputText type="text" placeholder="SR No">
+    <label>Date:</label>
+    <p-calendar dateFormat="yy-mm-dd" aria-placeholder="Date"></p-calendar>
+</div>
+<div>
+<label>P:</label>
+<input pInputText type="text" placeholder="Enter text">
+<label>D:</label>
+<input pInputText type="text" placeholder="Enter text">
+<div>
+<label>Branch:</label>
+<input pInputText type="text" placeholder="Enter text">
+<label>CTS:</label>
+<input pInputText type="text" placeholder="Enter text">
+</div> -->
+<br />
+<br />
+
+<div>
+<label>Size:</label>
+<p-dropdown [options]="sizes" optionLabel="size"  (onChange)="handlesize($event)"></p-dropdown>
+<!-- <div class="card flex justify-content-center"> -->
+<!-- <p-dropdown [options]="cities" optionLabel="name"></p-dropdown> -->
+<!-- </div> -->
+<label>Number:</label>
+<p-dropdown optionLabel="number" [options]="number" (onChange)="handlenumber($event)"></p-dropdown>
+<label>Carat:</label>
+<input pInputText type="number" id="carat" name="carat" [(ngModel)]="selectedcarat" />
+</div>
+<br>
+<div>
+<button pButton class="btn btn-primary btn-block animate__animated animate__fadeInUp" type="submit" label="Add" (click)="addCts()"></button>
+&nbsp;&nbsp;
+<button pButton class="btn btn-primary btn-block animate__animated animate__fadeInUp" type="submit" label="View" (click)="viewdata()" ></button>
+</div>
+<br />
+
+<div *ngFor="let key of selectedsizeonly">
+<h2>Total: {{ key }} </h2>
+<table>
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Carat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of getItemsBySize(key)">
+      <td>{{ item.number }}</td>
+      <td><input pInputText type="number" id="carat" name="carat" value="{{item?.carat}}" (input)="updateValue(isHTMLInputElement($event.target) ? $event.target.value : null, item, 'carat')" /></td>
+      <td><button pButton class="btn btn-primary btn-block animate__animated animate__fadeInUp"  label="Delete" (click)="deletects(item)"></button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+

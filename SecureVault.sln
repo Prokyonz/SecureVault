@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureVault.API", "SecureVault.API\SecureVault.API.csproj", "{C621BAF7-6A23-4044-95CE-E184208209FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureVault.API", "SecureVault.API\SecureVault.API.csproj", "{C621BAF7-6A23-4044-95CE-E184208209FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trade.Web", "Trade.Web\Trade.Web.csproj", "{3B2B81BB-7B74-44BA-AFDB-935B878512F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trade.Web", "Trade.Web\Trade.Web.csproj", "{5FA79CB8-B6C6-4817-9CEB-ADA3382C948A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{C621BAF7-6A23-4044-95CE-E184208209FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C621BAF7-6A23-4044-95CE-E184208209FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C621BAF7-6A23-4044-95CE-E184208209FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3B2B81BB-7B74-44BA-AFDB-935B878512F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B2B81BB-7B74-44BA-AFDB-935B878512F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3B2B81BB-7B74-44BA-AFDB-935B878512F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3B2B81BB-7B74-44BA-AFDB-935B878512F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FA79CB8-B6C6-4817-9CEB-ADA3382C948A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FA79CB8-B6C6-4817-9CEB-ADA3382C948A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FA79CB8-B6C6-4817-9CEB-ADA3382C948A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FA79CB8-B6C6-4817-9CEB-ADA3382C948A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

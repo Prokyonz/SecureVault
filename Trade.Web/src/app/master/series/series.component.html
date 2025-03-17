@@ -1,0 +1,61 @@
+<!-- <app-header [showSideBar]="true" title="{{ PageTitle }}" iconName="pi-arrow-left" leftIconName=""></app-header> -->
+<app-header (onClickMainIcon) = "myfunction()" iconName="pi-arrow-left" leftIconName="{{isSaveButton ? '' : 'pi-plus'}}" (onClickLeftIcon)="onAddIconClick();" title="{{ PageTitle }}"></app-header>
+<p-toast [breakpoints]="{'920px': { right: '0', left: '50'}}"></p-toast>
+
+<div class="full-screen-card-container" *ngIf="!isSaveButton">  <!-- Adjust the condition as needed -->
+  <div *ngIf="seriesItemData?.length === 0" class="no-data">
+    No Series data found.
+  </div>
+  
+  <div *ngFor="let item of seriesItemData" class="customer-card">
+    <div class="card-header">
+      <p-checkbox id="isActiveList" [(ngModel)]="item.isActive" name="isActiveList" 
+      [binary]="true" [disabled]="item.isActive" (onChange)="onCheckChange($event, item)"></p-checkbox>
+      {{ item.name }}
+    </div>
+
+    <div class="action-icons">
+      <i class="pi pi-pencil edit-icon" [routerLink]="['/series', item.id]" title="Edit" style="cursor: pointer;"></i>
+      <i class="pi pi-times delete-icon" (click)="deleteItem(item)" title="Delete" style="cursor: pointer;"></i>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="isSaveButton">
+  <form #addPOSForm="ngForm">
+    <!-- Item Name Input -->
+    <div class="form-group">
+      <label for="itemName">Series Name</label>
+      <input
+        type="text"
+        id="name"
+        class="form-control"
+        [(ngModel)]="seriesItem.name"
+        name="name"
+        required
+        #name="ngModel"
+        [ngClass]="{'is-invalid': name.invalid && name.touched}"
+      />
+    </div>
+
+    <!-- Is Active Checkbox -->
+    <div class="form-group form-check">
+      <!-- <p-checkbox id="isActive" [(ngModel)]="seriesItem.isActive" name="isActive" label="Is Active" [binary]="true"></p-checkbox> -->
+      <label [ngClass]="seriesItem.isActive ? 'active-label' : 'inactive-label'">
+        {{ seriesItem.isActive ? 'Active' : 'In Active' }}
+      </label>
+    </div>
+  </form>
+
+  <!-- Submit Button -->
+  <p-button 
+    [label]="isEditMode ? 'Update' : 'Submit'" 
+    (onClick)="showDetails()" 
+    icon="pi pi-check" 
+    [disabled]="addPOSForm.invalid ?? false" 
+  ></p-button>
+</div>
+
+<div class="progress-spinner" *ngIf="loading">
+  <p-progressSpinner strokeWidth="4" styleClass="w-3rem h-3rem"></p-progressSpinner>
+</div>

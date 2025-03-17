@@ -1,0 +1,39 @@
+<div class="header">
+    <table class="table">
+        <tr>
+            <td style="width: 50px;">
+                <p-button (click)="iconClick();" icon="pi {{iconName}}"></p-button>
+            </td>
+            <td class="title">
+                <div>
+                    <b>{{ title }}</b>
+                </div>
+            </td>
+            <td style="width: 50px;">
+                <p-button (click)="leftIconClick();" icon="pi {{ leftIconName }}"></p-button>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<div class="card flex justify-content-center">
+    <p-sidebar [(visible)]="sidebarVisible">
+        <ng-template pTemplate="header">
+            <div style="padding-top:50px;">
+                <b style="font-size: 25px;"><i class="pi pi-spin pi-star-fill"></i> SUNSPARKLE</b>
+            </div>
+
+        </ng-template>
+        <div style="padding: 0 1rem 1rem 1rem;">
+            <span>Welcome, <span>{{username}}</span></span>
+        </div>
+        <ng-template pTemplate="content">
+            <div class="card flex justify-content-center">
+                <p-panelMenu [transitionOptions]="'0ms'" class="panelMenu" [model]="filteredItems"
+                    [multiple]="false"></p-panelMenu>
+            </div>
+        </ng-template>
+
+    </p-sidebar>
+</div>

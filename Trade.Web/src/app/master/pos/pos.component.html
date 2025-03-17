@@ -1,0 +1,76 @@
+<!-- <app-header [showSideBar]="true" title="{{ PageTitle }}" iconName="pi-arrow-left" leftIconName=""></app-header> -->
+<app-header (onClickMainIcon) = "myfunction()" iconName="pi-arrow-left" leftIconName="{{isSaveButton ? '' : 'pi-plus'}}" (onClickLeftIcon)="onAddIconClick();" title="{{ PageTitle }}"></app-header>
+<p-toast [breakpoints]="{'920px': { right: '0', left: '50'}}"></p-toast>
+
+<div class="full-screen-card-container" *ngIf="!isSaveButton">  <!-- Adjust the condition as needed -->
+  <div *ngIf="posItemData.length === 0" class="no-data">
+    No POS data found.
+  </div>
+  
+  <div *ngFor="let item of posItemData" class="customer-card">
+    <div class="card-header">
+      <p-checkbox id="isActiveList" [(ngModel)]="item.isActive" name="isActiveList" 
+      [binary]="true" (onChange)="onCheckChange($event, item)"></p-checkbox>
+      {{ item.tidNumber }}
+    </div>
+    <div class="card-body">
+      <div><strong>{{ item.tidBankName }}</strong></div>
+    </div>
+
+    <div class="action-icons">
+      <i class="pi pi-pencil edit-icon" [routerLink]="['/pos', item.id]" title="Edit" style="cursor: pointer;"></i>
+      <i class="pi pi-times delete-icon" (click)="deleteItem(item)" title="Delete" style="cursor: pointer;"></i>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="isSaveButton">
+  <form #addPOSForm="ngForm">
+    <!-- Item Name Input -->
+    <div class="form-group">
+      <label for="itemName">TID Number</label>
+      <input
+        type="text"
+        id="tidNumber"
+        class="form-control"
+        [(ngModel)]="posItem.tidNumber"
+        name="tidNumber"
+        required
+        #tidNumber="ngModel"
+        [ngClass]="{'is-invalid': tidNumber.invalid && tidNumber.touched}"
+      />
+    </div>
+
+    <!-- Item Description Input -->
+    <div class="form-group">
+      <label for="itemDescription">TID Bank Name</label>
+      <input
+        type="text"
+        id="tidBankName"
+        class="form-control"
+        [(ngModel)]="posItem.tidBankName"
+        name="tidBankName"
+        required
+        #tidBankName="ngModel"
+        [ngClass]="{'is-invalid': tidBankName.invalid && tidBankName.touched}"
+      />
+    </div>
+
+    <!-- Is Active Checkbox -->
+    <div class="form-group form-check">
+      <p-checkbox id="isActive" [(ngModel)]="posItem.isActive" name="isActive" label="Is Active" [binary]="true"></p-checkbox>
+    </div>
+  </form>
+
+  <!-- Submit Button -->
+  <p-button 
+    [label]="isEditMode ? 'Update' : 'Submit'" 
+    (onClick)="showDetails()" 
+    icon="pi pi-check" 
+    [disabled]="addPOSForm.invalid ?? false" 
+  ></p-button>
+</div>
+
+<div class="progress-spinner" *ngIf="loading">
+  <p-progressSpinner strokeWidth="4" styleClass="w-3rem h-3rem"></p-progressSpinner>
+</div>

@@ -1,0 +1,577 @@
+<app-header [showSideBar]="true" title="{{ PageTitle }}" iconName="pi-arrow-left" leftIconName=""></app-header>
+<!-- <app-header (onClickMainIcon)="goBack()" iconName="pi-arrow-left" title="{{ PageTitle }}" leftIconName=""></app-header> -->
+
+<div class="full-screen-card-container" *ngIf="reportIndex == 1">
+  <!-- Filter Icon -->
+  <div class="filter-icon" (click)="showFilterPopup()">
+    <i class="fas fa-filter"></i>
+  </div>
+
+  <!-- Filter Modal -->
+  <div *ngIf="showFilter">
+    <div class="container">
+      <!-- Basic Details Card -->
+      <div class="panel">
+        <div class="card custom-card">
+          <p-card>
+            <div class="form-content">
+              <form>
+                <strong>Filter</strong>
+                <table class="form-table" [cellSpacing]="5">
+                  <tr>
+                    <td colspan="2" class="input-field">
+                      <label for="name">Customer</label><br />
+                      <input id="partyName" name="partyName" pInputText [(ngModel)]="filterCriteria.name" type="text"
+                        class="form-control" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="half-width">
+                      <p-button label="Search" (onClick)="filterSearch()"></p-button>
+                    </td>
+                    <td class="half-width">
+                      <p-button label="Reset" (onClick)="filterCancel()"></p-button>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="customers?.length === 0" class="no-data">
+    No customers found.
+  </div>
+
+  <div *ngFor="let customer of customers" class="customer-card">
+    <div class="card-header">
+      <strong>Customer ID: </strong>{{ customer.id }}
+    </div>
+    <div class="card-body">
+      <div><strong>{{ customer.firstName }} {{ customer.lastName }}</strong></div>
+      <div class="contact-section" style="height: auto; padding-bottom:10px;">
+        <i class="fas fa-map-marker-alt icon"></i>
+        <span>{{ customer.address }}</span>
+      </div>
+      <div class="contact-section d-flex">
+        <div class="half-width-1">
+          <i class="fa fa-mobile-alt icon"></i>
+          <span>{{ customer.mobileNo }}</span>
+        </div>
+        <div class="half-width-1">
+          <i class="fas fa-id-card icon"></i>
+          <span>{{ customer.panNo }}</span>
+        </div>
+      </div>
+      <div class="icon-container">
+        <div class="image-icons">
+          <i class="pi pi-image view-icon"
+            (click)="imageClick(customer.aadharImageFrontData,'Aadharcard Front', customer.id)" title="Aadharcard Front"
+            style="cursor: pointer;"></i>
+          <i class="pi pi-image view-icon"
+            (click)="imageClick(customer.aadhbarImageBackData,'Aadharcard Back', customer.id)" title="Aadharcard Back"
+            style="cursor: pointer;"></i>
+          <i class="pi pi-image view-icon" (click)="imageClick(customer.panImageData,'Pancard', customer.id)"
+            title="Pancard" style="cursor: pointer;"></i>
+          <i class="pi pi-image view-icon" (click)="imageClick(customer.signatureImageData,'Signature', customer.id)"
+            title="Signature" style="cursor: pointer;"></i>
+        </div>
+      </div>
+      <div>
+        <div class="action-icons">
+          <span class="username">-{{ customer.userName }}</span>
+          <div *ngIf="isAllowtoEditDelete">
+            <i class="pi pi-pencil edit-icon" [routerLink]="['/addcustomer', customer.id ]" title="Edit"
+              style="cursor: pointer;"></i>
+            <!-- <i class="pi pi-times delete-icon" (click)="deleteItem(customer.id )" title="Delete"
+            style="cursor: pointer;"></i> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="full-screen-card-container" *ngIf="reportIndex == 2">
+  <!-- Filter Icon -->
+  <div class="filter-icon" (click)="showFilterPopup()">
+    <i class="fas fa-filter"></i>
+  </div>
+
+  <!-- Filter Modal -->
+  <div *ngIf="showFilter">
+    <div class="container">
+      <!-- Basic Details Card -->
+      <div class="panel">
+        <div class="card custom-card">
+          <p-card>
+            <div class="form-content">
+              <form>
+                <strong>Filter</strong>
+                <table class="form-table" [cellSpacing]="5">
+                  <tr>
+                    <td colspan="2" class="input-field">
+                      <label for="name">User</label><br />
+                      <input id="partyName" name="partyName" pInputText [(ngModel)]="filterCriteria.name" type="text"
+                        class="form-control" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="half-width">
+                      <p-button label="Search" (onClick)="filterSearch()"></p-button>
+                    </td>
+                    <td class="half-width">
+                      <p-button label="Reset" (onClick)="filterCancel()"></p-button>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="users?.length === 0" class="no-data">
+    No users found.
+  </div>
+
+  <div *ngFor="let user of users" class="customer-card">
+    <div class="card-header">
+      <p-checkbox id="isActiveList" [(ngModel)]="user.isActive" name="isActiveList" [binary]="true"
+        (onChange)="onCheckChange($event, user)"></p-checkbox>
+      <strong>User ID: </strong>{{ user.id }}
+    </div>
+    <div class="card-body">
+      <div><strong>{{ user.firstName }} {{ user.lastName }}</strong></div>
+
+      <!-- Mobile Section with Icon -->
+      <div class="contact-section">
+        <i class="fa fa-mobile-alt icon"></i> <!-- Font Awesome Mobile Icon -->
+        <span>{{ user.mobileNo }}</span>
+      </div>
+
+      <!-- Email Section with Icon -->
+      <div class="contact-section">
+        <i class="fa fa-envelope icon"></i> <!-- Font Awesome Email Icon -->
+        <span>{{ user.emailId }}</span>
+      </div>
+
+      <div class="action-icons" *ngIf="isAllowtoEditDelete">
+        <i class="pi pi-pencil edit-icon" [routerLink]="['/user', user.id ]" title="Edit" style="cursor: pointer;"></i>
+        <i class="pi pi-times delete-icon" (click)="deleteItem(user.id )" title="Delete" style="cursor: pointer;"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="full-screen-card-container" *ngIf="reportIndex == 3"> <!-- Adjust the condition as needed -->
+  <!-- Filter Icon -->
+  <div class="filter-icon" (click)="showFilterPopup()">
+    <i class="fas fa-filter"></i>
+  </div>
+
+  <!-- Filter Modal -->
+  <div *ngIf="showFilter">
+    <div class="container">
+      <!-- Basic Details Card -->
+      <div class="panel">
+        <div class="card custom-card">
+          <p-card>
+            <div class="form-content">
+              <form>
+                <strong>Filter</strong>
+                <table class="form-table" [cellSpacing]="5">
+                  <tr>
+                    <td class="half-width">
+                      <label for="frmdate">From Date</label>
+                      <p-calendar name="fromDate" [(ngModel)]="filterCriteria.fromDate" [showIcon]="true"
+                        [touchUI]="true" [readonlyInput]="true" dateFormat="dd/mm/yy"></p-calendar>
+                    </td>
+                    <td class="half-width">
+                      <label for="todate">To Date</label>
+                      <p-calendar name="toDate" [(ngModel)]="filterCriteria.toDate" [showIcon]="true" [touchUI]="true"
+                        [readonlyInput]="true" dateFormat="dd/mm/yy"></p-calendar>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="input-field">
+                      <label for="name">Dealer</label><br />
+                      <input id="partyName" name="partyName" pInputText [(ngModel)]="filterCriteria.name" type="text"
+                        class="form-control" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="half-width">
+                      <p-button label="Search" (onClick)="filterSearch()"></p-button>
+                    </td>
+                    <td class="half-width">
+                      <p-button label="Reset" (onClick)="filterCancel()"></p-button>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="purchaseData?.length === 0" class="no-data">
+    No purchase data found.
+  </div>
+
+  <div *ngFor="let purchase of purchaseData" class="customer-card">
+    <div class="card-header">
+      <strong>Purchase No: </strong>{{ purchase.invoiceNo }}
+    </div>
+    <div class="card-body">
+      <div><strong>{{ purchase.dealerName }}</strong></div>
+
+      <!-- Bill Amount Section -->
+      <div class="details-section">
+        <span>{{ purchase.billAmount | currency:'INR' }}</span> <!-- Currency pipe for formatting -->
+      </div>
+
+      <div class="details-section">
+        <span>{{ purchase.invoiceDate | date: 'dd/MM/yyyy' }}</span> <!-- Currency pipe for formatting -->
+      </div>
+
+      <!-- <div class="action-icons">
+        <i class="pi pi-pencil edit-icon" [routerLink]="['/purchase', purchase.id]" title="Edit" style="cursor: pointer;"></i>
+        <i class="pi pi-times delete-icon" (click)="deleteItem(purchase.id)" title="Delete" style="cursor: pointer;"></i>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<div class="full-screen-card-container" *ngIf="reportIndex == 4"> <!-- Adjust the condition as needed -->
+  <!-- Filter Icon -->
+  <div class="filter-icon" (click)="showFilterPopup()">
+    <i class="fas fa-filter"></i>
+  </div>
+
+  <!-- Filter Modal -->
+  <div *ngIf="showFilter">
+    <div class="container">
+      <!-- Basic Details Card -->
+      <div class="panel">
+        <div class="card custom-card">
+          <p-card>
+            <div class="form-content">
+              <form>
+                <strong>Filter</strong>
+                <table class="form-table" [cellSpacing]="5">
+                  <tr>
+                    <td class="half-width">
+                      <label for="frmdate">From Date</label>
+                      <p-calendar name="fromDate" [(ngModel)]="filterCriteria.fromDate" [showIcon]="true"
+                        [touchUI]="true" [readonlyInput]="true" dateFormat="dd/mm/yy"></p-calendar>
+                    </td>
+                    <td class="half-width">
+                      <label for="todate">To Date</label>
+                      <p-calendar name="toDate" [(ngModel)]="filterCriteria.toDate" [showIcon]="true" [touchUI]="true"
+                        [readonlyInput]="true" dateFormat="dd/mm/yy"></p-calendar>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="input-field">
+                      <label for="name">Party</label><br />
+                      <input id="partyName" name="partyName" pInputText [(ngModel)]="filterCriteria.name" type="text"
+                        class="form-control" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="half-width">
+                      <p-button label="Search" (onClick)="filterSearch()"></p-button>
+                    </td>
+                    <td class="half-width">
+                      <p-button label="Reset" (onClick)="filterCancel()"></p-button>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="saleData?.length === 0" class="no-data">
+    No sale data found.
+  </div>
+
+  <div *ngIf="!isAdminView">
+    <div *ngFor="let group of groupedSaleData" class="customer-card">
+      <div class="sale-card-header d-flex justify-content-between align-items-center">
+        <strong>{{ group.partyName }}</strong>
+        <strong>{{ group.invoiceNo }}</strong>
+      </div>
+      <div class="card-body">
+        <!-- Bill Amount Section -->
+        <div class="details-section">
+          <span><strong>Bill Amount:</strong> {{ group.billAmount | currency: 'INR' }}</span>
+        </div>
+
+        <!-- Invoice Date -->
+        <div class="details-section">
+          <span><strong>Date:</strong> {{ group.invoiceDate | date: 'dd/MM/yyyy' }}</span>
+        </div>
+
+        <!-- Payment Details -->
+        <div class="details-section">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="width: 12%;">Type</th>
+                <th style="width: 25%;">No</th>
+                <th style="width: 28%;">Card No</th>
+                <th style="width: 35%;">Paid Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let detail of group.details">
+                <td>
+                  <i [class]="detail.paymentMode === 'Cash' ? 'fas fa-money-bill-wave' : 'fas fa-credit-card'"
+                    [style.color]="detail.paymentMode === 'Cash' ? 'green' : '#007bff'">
+                  </i>
+                </td>
+                <td>{{ detail.paymentNo }}</td>
+                <td>{{ detail.cardNo ? detail.cardNo.slice(-4) : '-' }}</td>
+                <td>{{ detail.paidAmount | currency: 'INR' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="action-icons">
+          <span class="username">-{{ group.userName }}</span>
+          <i class="pi pi-eye view-icon" [routerLink]="['/salebill', group.id]" title="View"
+            style="cursor: pointer;"></i>
+          <div *ngIf="isAllowtoEditDelete">
+            <i class="pi pi-pencil edit-icon" [routerLink]="['/sale', group.id]" title="Edit"
+              style="cursor: pointer;"></i>
+            <i *ngIf="this.user?.isAdmin" class="pi pi-times delete-icon" (click)="deleteItem(group.id)" title="Delete"
+              style="cursor: pointer;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isAdminView">
+    <p-table #dt1 [value]="PurchaseReportList" dataKey="id" [rows]="10" [showCurrentPageReport]="false"
+      [rowsPerPageOptions]="[5, 10, 25, 50]" [scrollable]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+      [pageLinks]="3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [globalFilterFields]="filterColumn" scrollHeight="calc(65vh)" [tableStyle]="{'min-width': '40rem'}"
+      [(selection)]="selectedPurchases" selectionMode="multiple">
+
+      <ng-template pTemplate="caption">
+        <div class="flex">
+          <button type="button" pButton pRipple icon="pi pi-file-excel" style="width: 3rem; margin-right: 0.5rem;" (click)="exportExcel(dt1)"
+            class="p-button-success button-margin" pTooltip="XLS" tooltipPosition="bottom"></button>
+          <button *ngIf="selectedPurchases && selectedPurchases.length > 0" type="button" pButton pRipple icon="pi pi-file-pdf" style="width: 3rem; margin-right: 0.5rem;" (click)="openExportDialog()"
+            class="p-button-warning button-margin" pTooltip="PDF" tooltipPosition="bottom"></button>
+          <button pButton pRipple class="p-button-square" style="width: 3rem; margin-right: 0.5rem;"
+            [ngClass]="{'p-button-secondary': !isFilter, 'p-button-success': isFilter}" (click)="toggle()">
+            <i class="pi" [ngClass]="{'pi-eye': isFilter, 'pi-eye-slash': !isFilter}"></i>
+          </button>
+
+          <p-multiSelect [options]="columnArray" [(ngModel)]="selectedColumnArray" optionLabel="displayName"
+            [showToggleAll]="false" selectedItemsLabel="{0} columns selected" placeholder="Choose Columns"
+            (ngModelChange)="onSelectedColumnsChange($event)"></p-multiSelect>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr>
+          <ng-container *ngFor="let item of selectedColumnArray">
+            <ng-container *ngIf="item.dataType === 'Checkbox'">
+              <th [ngStyle]="{'min-width': item.minWidth ? item.minWidth + 'rem' : '5rem'}">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+            </ng-container>
+            <ng-container *ngIf="!((item.displayName === 'View' || item.displayName === 'Checkbox') 
+            && (item.dataType === 'button' || item.dataType === 'Checkbox'))">
+              <th [ngStyle]="{'min-width': item.minWidth ? item.minWidth + 'rem' : '5rem'}"
+                pSortableColumn="{{item.fieldName}}" class="header-cell">
+                <div class="flex align-items-center">
+                  {{item.displayName}} <p-sortIcon
+                    *ngIf="item.displayName !== 'Approve' && item.displayName !== 'Reject' && isFilter"
+                    field="{{item.fieldName}}"></p-sortIcon>
+                  <p-columnFilter field="item.fieldName" matchMode="in" display="menu"
+                    *ngIf="item.displayName !== 'Approve' && item.displayName !== 'Reject' && isFilter"
+                    [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-multiSelect *ngIf="!item.hideFilter" [options]="getDistinctColumnValues(item.fieldName)"
+                        optionLabel="fieldValue" [(ngModel)]="PurchaseReportCloneList[item.fieldName]"
+                        [style]="{'min-width': '15rem'}" (onChange)="applyFilter($event, item.fieldName)"
+                        placeholder="Filter {{ item.displayName }}"
+                        [selectedItemsLabel]="getSelectedItemsLabel(item.fieldName)" appendTo="body"
+                        [showClear]="false">
+                      </p-multiSelect>
+                    </ng-template>
+                  </p-columnFilter>
+                </div>
+              </th>
+            </ng-container>
+            <ng-container *ngIf="item.dataType === 'button'">
+              <th [ngStyle]="{'min-width': item.minWidth ? item.minWidth + 'rem' : '5rem'}"
+                pSortableColumn="{{item.fieldName}}" class="header-cell">
+              </th>
+              <!-- <button (click)="viewDetails(item)">View</button> -->
+            </ng-container>
+          </ng-container>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-purchase let-rowIndex="rowIndex">
+        <tr>
+          <ng-container *ngFor="let item of selectedColumnArray">
+            <ng-container *ngIf="item.dataType === 'Checkbox'">
+              <td>
+                <p-tableCheckbox [value]="purchase"></p-tableCheckbox>
+              </td>
+            </ng-container>
+            <ng-container *ngIf="!(item.displayName === 'View' || item.displayName === 'Checkbox')">
+              <td>
+                <span *ngIf="item.dataType == 'Date'">{{ purchase[item.fieldName] | date: 'dd/MM/yyyy'}}</span>
+                <span *ngIf="item.displayName === 'Total' && item.dataType == 'numeric'">
+                  {{ purchase[item.fieldName] | number: '1.2-2': 'en-IN' }}
+                </span>
+                <span *ngIf="item.dataType === 'icon'&& item.displayName === 'Export'">
+                  <button type="button" pButton pRipple icon="pi pi-file-excel" class="p-button-success mr-2"
+                    pTooltip="XLS" (click)="exportLedger('excel',purchase)" tooltipPosition="bottom"></button>
+                </span>
+                <span *ngIf="item.dataType === 'icon'&& item.displayName === 'Export Pdf'">
+                  <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning mr-2"
+                    pTooltip="PDF" (click)="exportLedger('pdf',purchase)" tooltipPosition="bottom"></button>
+                </span>
+                <span
+                  *ngIf="(item.displayName.indexOf('Amount') > 0 || item.displayName === 'Amount' || item.fieldName === 'closingBalance') && item.dataType == 'numeric'">
+                  {{ formatIndianNumber( purchase[item.fieldName]?.toFixed(2),false)}}
+                </span>
+                <span *ngIf="(item.displayName === 'Credit' || item.displayName === 'Debit')">{{
+                  purchase[item.fieldName] == 0 ? '' : purchase[item.fieldName] }} </span>
+                <span
+                  *ngIf="item.displayName !== 'Credit' && item.displayName !== 'Debit' && item.displayName !== 'Approve' && item.displayName !== 'Reject' && item.displayName !== 'Approval Status' && item.dataType !== 'Date' && item.dataType !== 'Decimal' && item.displayName !== 'Total' 
+                          && item.dataType !== 'icon' && item.displayName !== 'Amount' && item.fieldName !== 'closingBalance'  && item.displayName.indexOf('Amount') === -1">{{
+                  purchase[item.fieldName] }} </span>
+              </td>
+            </ng-container>
+            <ng-container *ngIf="item.dataType === 'button'">
+              <td>
+                <!-- <button (click)="viewDetails(item)">View</button> -->
+                <i class="pi pi-eye view-icon" [routerLink]="['/salebill', purchase[item.fieldName]]" title="View"
+                  style="cursor: pointer;"></i>
+              </td>
+            </ng-container>
+          </ng-container>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <tr>
+          <td *ngFor="let col of selectedColumnArray"
+            [ngStyle]="{'min-width': col.minWidth ? col.minWidth + 'rem' : '5rem'}" class="footer-td">
+            <span
+              *ngIf="(col.fieldName === 'carratQty' || col.fieldName === 'amount' || col.fieldName === 'sgst' 
+                || col.fieldName === 'cgst' ||  col.fieldName === 'discount' || col.fieldName === 'billAmount' || col.fieldName === 'payment1_Amount'
+                || col.fieldName ===  'payment2_Amount' || col.fieldName ===  'payment3_Amount'|| col.fieldName ===  'payment4_Amount')">
+              {{ formatIndianNumber(calculateColumnSum(col.fieldName), false) }}
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7">No data found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<div class="full-screen-card-container" *ngIf="reportIndex == 5"> <!-- Adjust the condition as needed -->
+  <div *ngIf="stockData?.length === 0" class="no-data">
+    No stock data found.
+  </div>
+
+  <div *ngFor="let stock of stockData" class="customer-card">
+    <div class="card-header">
+      <strong>Item: </strong>{{ stock.name }}
+    </div>
+    <div class="card-body">
+      <div>
+        <strong>Qty: </strong>{{ stock.quantity }}
+      </div>
+
+      <div class="details-section">
+        <strong>Rate: </strong>{{ stock.rate }}
+      </div>
+
+      <div class="details-section">
+        <strong>GST: </strong>{{ stock.gstPer }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="full-screen-card-container" *ngIf="reportIndex == 4">
+  <div *ngIf="itemData.length === 0" class="no-data">
+    No item data found.
+  </div>
+  
+  <div *ngFor="let item of itemData" class="customer-card">
+    <div class="card-header">
+      {{ item.name }}
+    </div>
+    <div class="card-body">
+      <div><strong>{{ item.description }}</strong></div>
+    </div>
+  </div>
+</div> -->
+
+<p-dialog header="{{imageDetails}}" [(visible)]="isImageVisible" [modal]="true" [responsive]="true" (onHide)="onDialogClose()">
+  <img *ngIf="imageUrl" [src]="imageUrl" alt="Uploaded Image" style="max-width: 300px; max-height: 300px;" />
+
+  <ng-template pTemplate="footer">
+    <div style="display: flex; justify-content: flex-end; align-items: center; width: 100%;">
+      <button pButton type="button" icon="pi pi-share-alt" class="p-button-text" (click)="shareImage()"
+        style="margin-left: auto;"></button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<div class="progress-spinner" *ngIf="loading">
+  <p-progressSpinner strokeWidth="4" styleClass="w-3rem h-3rem"></p-progressSpinner>
+</div>
+
+<div *ngIf="isAdminView && selectedPurchases && selectedPurchases.length > 0" style="margin-top: 1000px;">
+  <div *ngFor="let bill of selectedPurchases" id="bill-{{bill.id}}"
+    style="width: 215mm; height: 303mm; box-sizing: border-box; overflow: auto;">
+    <app-sale-print [billId]="bill.id"
+    [includeMobile]="includeMobile"
+    [includeEmail]="includeEmail"></app-sale-print>
+  </div>
+</div>
+
+<p-dialog header="Export Settings" [(visible)]="exportDialogVisible" [closable]="false" [modal]="true" class="custom-dialog">
+  <div class="p-field">
+    <p-checkbox label="Include Mobile No" [(ngModel)]="includeMobile" [binary]="true"></p-checkbox>
+  </div>
+  <div class="p-field">
+    <p-checkbox label="Include Email ID" [(ngModel)]="includeEmail" [binary]="true"></p-checkbox>
+  </div>
+
+  <div class="dialog-footer">
+    <button pButton label="Export" icon="pi pi-check" (click)="exportPdf()"></button>
+    <button pButton label="Cancel" icon="pi pi-times" (click)="exportDialogVisible = false"></button>
+  </div>
+</p-dialog>

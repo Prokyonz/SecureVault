@@ -1,0 +1,39 @@
+<app-header (onClickMainIcon) = "goBack()" *ngIf="showHeaderForCompanySelect" title="{{ showHeaderForCompanySelect == true ? 'Company Selection' : '' }}" iconName="pi-arrow-left" leftIconName=""></app-header>
+
+<div class="card justify-content-center">
+    <p-card header="{{ showHeaderForCompanySelect == true ? '' : 'Company Selection' }}">      
+        <ng-template pTemplate="content">        
+          <table style="width: 100%;" [cellPadding]="5">
+            <tr>
+              <td>
+                <span style="bottom: 5px; position: relative;">Company</span><br/>                                                       
+                <p-dropdown [options]="Company" [(ngModel)]="SelectedCompany" (onChange)="handleCompany($event)" optionLabel="name"></p-dropdown>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span style="bottom: 5px; position: relative;">Branch</span><br/>                                                                         
+                <p-dropdown [options]="Branch" [(ngModel)]="SelectedBranch" (onChange)="handleBranch($event)" optionLabel="name"></p-dropdown>
+              </td>
+            </tr>
+            <tr>
+                <td>
+                  <span style="bottom: 5px; position: relative;">Financial Year</span><br/>                                                                         
+                  <p-dropdown [options]="FinancialYear" [(ngModel)]="SelectedFinancialYear" (onChange)="handleAccountYear($event)" optionLabel="name"></p-dropdown>
+                </td>
+              </tr>
+            <tr>
+              <td>
+                <p-checkbox value="Remember selection" inputId="rem" [(ngModel)]="rememberMe"  [binary]="true"></p-checkbox>
+                <label for="rem" class="ml-2">Remember selection</label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-button label="Save" (onClick)="onSaveCompanySelection()" icon="pi pi-check"></p-button>
+              </td>
+            </tr>
+          </table>        
+        </ng-template>
+    </p-card>
+</div>

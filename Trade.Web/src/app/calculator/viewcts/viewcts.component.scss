@@ -1,0 +1,13 @@
+table td {
+    vertical-align: top;
+}
+
+.panel {
+    height: calc(100vh - 56px - 54px - 45px);
+    overflow-y: scroll;
+}
+
+.p-button.p-button-icon-only {
+    width: 100%;
+    padding: 15px;
+}

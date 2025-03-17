@@ -1,0 +1,127 @@
+<app-header [showSideBar]="true" title="Home" iconName="pi-align-justify" leftIconName=""></app-header>
+<!-- <app-filterbar (onClickSearchButton)="onSeach($event)"></app-filterbar> -->
+
+<!-- <div class="panel">
+    <div class="card flex justify-content-center">
+        <p-card subheader="Card Subheader" class="custom-design">
+            <ng-template pTemplate="header">
+                <b class="p-card-body header">Purchase</b>
+            </ng-template>
+            <i class="pi pi-dollar custom-amount"></i>
+            <span class="amount">13,950,990.10</span>
+        </p-card>
+    </div>
+    <br/>
+
+    <div class="card flex justify-content-center">
+        <p-card subheader="Card Subheader" class="custom-design">
+            <ng-template pTemplate="header">
+                <b class="p-card-body header">Sales</b>
+            </ng-template>
+            <i class="pi pi-dollar custom-amount"></i>
+            <span class="amount">53,490,900.45</span>
+        </p-card>
+    </div>
+
+    <br/>
+
+    <div class="card flex justify-content-center">
+        <p-card subheader="Card Subheader" class="custom-design">
+            <ng-template pTemplate="header">
+                <b class="p-card-body header">Payment</b>
+            </ng-template>
+            <i class="pi pi-dollar custom-amount"></i>
+            <span class="amount">13,450,000.80</span>
+        </p-card>
+    </div>
+
+    <br/>
+
+    <div class="card flex justify-content-center">
+        <p-card subheader="Card Subheader" class="custom-design">
+            <ng-template pTemplate="header">
+                <b class="p-card-body header">Receipt</b>
+            </ng-template>
+            <i class="pi pi-dollar custom-amount"></i>
+            <span class="amount">23,450,000.57</span>
+        </p-card>
+    </div>
+</div> -->
+
+<!-- <div class="panel">
+    <div class="dashboard-container" *ngFor="let rowData of dashBoardReportItems">
+        {{rowData.label}}
+        <ng-container *ngFor="let rowChildData of rowData.children; let i = index">
+            <div class="dashboard-row" *ngIf="i % 3 === 0 || i === 0">
+                <div class="dashboard-cell">
+                    <a class="dashboard-item" [routerLink]="rowChildData.label !== 'Overview' ? rowChildData.routerLink : null">
+                        <div class="dashboard-icon big-icon">
+                            <i [ngClass]="rowChildData.icon"></i>
+                        </div>
+                        <div class="dashboard-label">
+                            {{ rowChildData.label }}
+                        </div>
+                    </a>
+                </div>
+                <div class="dashboard-cell" *ngIf="i + 1 < rowData.children.length">
+                    <a class="dashboard-item"
+                        [routerLink]="rowData.children[i + 1].label !== 'Overview' ? rowData.children[i + 1].routerLink : null">
+                        <div class="dashboard-icon big-icon">
+                            <i [ngClass]="rowData.children[i + 1].icon"></i>
+                        </div>
+                        <div class="dashboard-label">
+                            {{ rowData.children[i + 1].label }}
+                        </div>
+                    </a>
+                </div>
+                <div class="dashboard-cell" *ngIf="i + 2 < rowData.children.length">
+                    <a class="dashboard-item"
+                        [routerLink]="rowData.children[i + 2].label !== 'Overview' ? rowData.children[i + 2].routerLink : null">
+                        <div class="dashboard-icon big-icon">
+                            <i [ngClass]="rowData.children[i + 2].icon"></i>
+                        </div>
+                        <div class="dashboard-label">
+                            {{ rowData.children[i + 2].label }}
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div> -->
+
+
+<div class="panel">
+    <div class="dashboard-container">
+        <!-- Loop through each group -->
+        <ng-container *ngFor="let rowData of dashBoardReportItems">
+            <div *ngIf="rowData?.visible">
+                <!-- Display Group Label -->
+                <div class="group-label">
+                    {{ rowData.label }}
+                </div>
+
+                <!-- Display Group Items in a Responsive Grid -->
+                <div class="dashboard-grid">
+                    <ng-container *ngFor="let rowChildData of rowData.children">
+                        <div class="dashboard-card" [ngStyle]="{ 'background-color': rowChildData.color }"
+                            *ngIf="rowChildData?.visible">
+                            <a class="dashboard-item" [routerLink]="rowChildData.routerLink">
+                                <div class="dashboard-icon">
+                                    <i [ngClass]="rowChildData.icon"></i>
+                                </div>
+                                <div class="dashboard-label">
+                                    {{ rowChildData.label }}
+                                </div>
+                            </a>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="progress-spinner" *ngIf="loading">
+    <p-progressSpinner strokeWidth="4" styleClass="w-3rem h-3rem"></p-progressSpinner>
+</div>

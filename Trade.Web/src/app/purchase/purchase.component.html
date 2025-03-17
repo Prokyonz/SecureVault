@@ -1,0 +1,111 @@
+<app-header [showSideBar]="true" title="{{ PageTitle }}" iconName="pi-arrow-left" leftIconName=""></app-header>
+<p-toast [breakpoints]="{'920px': { right: '0', left: '50'}}"></p-toast>
+<div class="container">
+  <!-- Form Section -->
+  <div class="form-container">
+    <form (ngSubmit)="onSubmit()" #purchaseForm="ngForm" style="height: calc(82vh); overflow:scroll;">
+      <!-- Sale Header Section -->
+      <div class="form-group">
+        <label for="date">Date</label>
+        <!-- <input type="date" id="date" [(ngModel)]="saleData.date" name="date" class="form-control" required> -->
+        <p-calendar name="date" [(ngModel)]="purchase.invoiceDate" [showIcon]="true" [touchUI]="true"
+          [readonlyInput]="true" dateFormat="dd/mm/yy"></p-calendar>
+      </div>
+
+      <div class="form-group">
+        <label for="party">Party</label>
+        <!-- <p-dropdown id="party" [(ngModel)]="purchase.customerId" name="party" [options]="parties" optionLabel="fullName"
+          optionValue="id" placeholder="Search and select a party" [filter]="true" [showClear]="true" filterBy="fullName">
+        </p-dropdown> -->
+        <input type="text" [(ngModel)]="purchase.dealerName" name="dealerName" placeholder="Party Name"
+                    required #partyInput="ngModel" [ngClass]="{'is-invalid': partyInput.touched && partyInput.invalid}">
+      </div>
+
+      <div class="form-group">
+        <label for="party">Description</label>
+        <textarea id="address" pInputTextarea rows="5" cols="30"
+                                        class="form-control" name="description" [(ngModel)]="purchase.description"></textarea>
+      </div>
+
+      <!-- Items Section - Card View -->
+      <div class="items-container">
+        <div *ngFor="let item of purchase.purchaseDetails; let i = index" class="item-card">
+          <p-card [header]="'Item ' + (i + 1)" class="mb-3">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="itemName{{i}}">Item Name</label>
+                <!-- <input type="text" [(ngModel)]="item.itemName" name="itemName{{i}}" class="form-control" placeholder="Item Name" required> -->
+                <p-dropdown id="itemName{{i}}" [(ngModel)]="item.itemId" name="itemName{{i}}" [options]="itemsList"
+                  optionLabel="name" optionValue="id" placeholder="Select Item" [filter]="true" [showClear]="true"
+                  filterBy="name" (onChange)="onItemSelect(item.itemId); calculateTotal(item)" 
+                  [ngClass]="{'is-invalid': isFieldInvalid(item,'item')}">
+                </p-dropdown>
+              </div>
+
+              <div class="form-group">
+                <label for="party">Item Description</label>
+                <textarea id="address" pInputTextarea rows="5" cols="30"
+                                                class="form-control" name="itemdescription{{i}}" [(ngModel)]="item.itemDescription"></textarea>
+              </div>
+
+              <!-- Flexbox for Qty and Rate on the same line -->
+              <div class="form-row">
+                <div class="col-6">
+                  <label for="qty{{i}}">Quantity</label><br />
+                  <input type="number" [(ngModel)]="item.quantity" name="qty{{i}}" class="form-control" placeholder="Qty"
+                    required min="1" [ngClass]="{'is-invalid': isFieldInvalid(item,'qty')}" (ngModelChange)="calculateTotal(item)">
+                </div>
+                <div class="col-6">
+                  <label for="rate{{i}}">Rate</label><br />
+                  <input type="number" [(ngModel)]="item.rate" name="rate{{i}}" class="form-control" placeholder="Rate"
+                    required min="1" [ngClass]="{'is-invalid': isFieldInvalid(item,'rate')}" (ngModelChange)="calculateTotal(item)">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col-6">
+                  <label for="gst{{i}}">SGST Rate</label>
+                  <input type="number" [(ngModel)]="item.sGST" name="sGST{{i}}" class="form-control" placeholder="GST"
+                    required (ngModelChange)="calculateTotal(item)" [disabled]="true">
+                </div>
+                <div class="col-6">
+                  <label for="gst{{i}}">CGST Rate</label>
+                  <input type="number" [(ngModel)]="item.cGST" name="cGST{{i}}" class="form-control" placeholder="GST"
+                    required (ngModelChange)="calculateTotal(item)" [disabled]="true">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="total{{i}}">Amount</label>
+                <input type="number" [(ngModel)]="item.total" name="total{{i}}" class="form-control" placeholder="Total"
+                  [readonly]="true" [disabled]="true">
+              </div>
+
+              <!-- Edit and Delete Actions -->
+              <div class="action-icons">
+                <!-- <i class="pi pi-pencil edit-icon" (click)="editItem(i)" title="Edit"></i> -->
+                <i class="pi pi-times delete-icon" (click)="deleteItem(i)" title="Delete"></i>
+              </div>
+            </div>
+          </p-card>
+        </div>
+      </div>
+      <button type="button" (click)="addItem()" class="btn btn-secondary btn-sm">Add Item</button>
+
+      <div class="form-group">
+        <label for="billAmount">Bill Amount</label>
+        <input type="number" id="billAmount" [(ngModel)]="purchase.billAmount" name="billAmount" class="form-control"
+          placeholder="0" [disabled]="true">
+      </div>
+
+      <div class="form-group">
+        <!-- <button type="submit" [disabled]="!isFormValid()" class="btn btn-primary btn-lg w-100">Submit</button> -->
+        <p-button label="Submit" [disabled]="purchaseForm.invalid ?? false" (onClick)="showDetails()" icon="pi pi-check"></p-button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="progress-spinner" *ngIf="loading">
+  <p-progressSpinner strokeWidth="4" styleClass="w-3rem h-3rem"></p-progressSpinner>
+</div>

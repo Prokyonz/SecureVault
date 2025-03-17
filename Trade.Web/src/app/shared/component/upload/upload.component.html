@@ -1,0 +1,11 @@
+<div class="upload-container">
+    <label for="fileInput">Upload Image:</label>
+    <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*" />
+
+    <div>
+        <img *ngIf="imageUrl" [src]="imageUrl" alt="Uploaded Image" style="max-width: 300px; max-height: 300px;" />
+        <label *ngIf="!imageUrl" for="fileInput">No Image found</label>
+    </div>
+
+    <p-button label="Upload" (onClick)="onUpload()"></p-button>
+</div>

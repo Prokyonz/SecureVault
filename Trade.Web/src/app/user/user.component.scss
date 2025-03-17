@@ -1,0 +1,118 @@
+/* SCSS for layout and styling */
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 15px;
+    height: 87vh; /* Full page height */
+    overflow-y: auto; /* Allow page-level scrolling */
+    margin: 20px auto;
+  }
+  
+  .custom-card {
+    margin-bottom: 16px; /* Add space between cards */
+  }
+  
+  .table-header {
+    width: 100%;
+  }
+  
+  .form-content{
+    padding: 0%;
+  }
+
+  .section-title {
+    font-size: 20px;
+    padding-left: 1rem;
+    color: #333;
+  }
+  
+  .form-table {
+    width: 100%;
+    // padding: 8px;
+  }
+  
+  .input-field {
+    padding-top: 10px;
+  }
+  
+  .half-width-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px; /* Gap between the fields */
+  }
+  
+  .half-width {
+    width: 48%; /* 48% to leave room for gap */
+  }
+  
+  .form-label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 100%) {
+    .half-width-row {
+      flex-direction: column; /* Stack fields vertically */
+    }
+  
+    .half-width {
+      width: 100%; /* Full width on small screens */
+      margin-bottom: 10px; /* Space between the fields */
+    }
+  
+    .form-container {
+      padding: 8px;
+    }
+  
+    .section-title {
+      font-size: 18px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .card {
+      padding: 8px;
+    }
+  
+    .section-title {
+      font-size: 16px;
+    }
+  
+    .form-control {
+      padding: 10px;
+    }
+  
+    .document-field label {
+      font-size: 12px;
+    }
+  }
+
+  .multi-select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+  }
+  
+  .checkbox-item {
+    margin-bottom: 5px;
+  }
+  
+  .checkbox-item label {
+    margin-left: 5px;
+  }
+
+  .is-invalid {
+    border: 1px solid red;
+  }
+  
+  

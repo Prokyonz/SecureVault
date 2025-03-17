@@ -1,0 +1,13 @@
+<app-header [showSideBar]="true" title="{{ PageTitle }}" (onClickMainIcon)="onBack()" iconName="pi-arrow-left"
+    leftIconName="{{'pi pi-share-alt'}}" (onClickLeftIcon)="sharePDF1();"></app-header>
+
+<p-toast [breakpoints]="{'920px': { right: '0', left: '50'}}"></p-toast>
+<div class="container" style="width: 100%; height: 95vh; overflow: auto; display: grid; place-items: center;">
+    <div id="content-to-print" style="width: 215mm; height: 303mm; box-sizing: border-box; overflow: auto;">
+        <app-sale-print [billId]="billId"></app-sale-print>
+    </div>
+</div>
+
+<div class="progress-spinner" *ngIf="loading">
+    <p-progressSpinner strokeWidth="4" styleClass="w-3rem h-3rem"></p-progressSpinner>
+</div>

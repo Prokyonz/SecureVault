@@ -1,0 +1,298 @@
+/* Full-screen card container */
+.full-screen-card-container {
+  display: flex;
+  flex-direction: column;
+  height: 90vh; /* Take full viewport height */
+  overflow: auto; /* Allow scrolling if content exceeds the screen height */
+  padding: 10px;
+}
+
+/* Style for the individual customer card */
+.customer-card {
+  margin: 10px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.card-body {
+  font-size: 1em;
+  color: #333;
+}
+
+.card-body div {
+  margin-bottom: 8px;
+}
+
+.no-data {
+  text-align: center;
+  color: #999;
+  margin-top: 20px;
+}
+
+/* Contact Section to align mobile and email icon + text */
+.contact-section {
+  display: flex;
+  align-items: center;  /* Align items horizontally */
+  width: 100%;          /* Ensure they take full available width */
+  height: 20px;         /* Set fixed height to ensure same height for both mobile and email sections */
+  //margin-bottom: 8px;   /* Space between sections */
+}
+
+.icon {
+  font-size: 24px;      /* Icon size */
+  margin-right: 10px;   /* Space between icon and text */
+  color: #007bff;       /* Icon color */
+  width: 25px;          /* Fixed width for icons to align them */
+  height: 25px;         /* Fixed height to align with text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-section span {
+  font-size: 1em;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .customer-card {
+    padding: 15px;
+  }
+
+  .card-header {
+    font-size: 1.1em;
+  }
+
+  .card-body div {
+    font-size: 0.9em;
+  }
+
+  /* Reduce the icon size on mobile */
+  .icon {
+    font-size: 18px;
+  }
+}
+
+.sale-card-header {
+  display: flex;
+  justify-content: space-between; /* Aligns items to the left and right */
+  align-items: center;           /* Vertically centers items */
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.details-section table {
+  width: 100%;
+  table-layout: fixed; /* Distribute column width equally */
+}
+
+.details-section th, .details-section td {
+  text-align: center;
+  word-wrap: break-word; /* Wrap long text if necessary */
+}
+
+
+/* Filter Icon */
+.filter-icon {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: white;
+  color: #007bff;
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.filter-icon i {
+  font-size: 20px;
+}
+
+/* Filter Modal */
+.filter-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+}
+
+.filter-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field {
+  padding-top: 10px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Responsive design */
+@media (max-width: 100%) {
+  .half-width-row {
+    flex-direction: column;
+    /* Stack fields vertically */
+  }
+
+  .half-width {
+    width: 100%;
+    /* Full width on small screens */
+    margin-bottom: 10px;
+    /* Space between the fields */
+  }
+
+  .form-container {
+    padding: 8px;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+}
+
+.half-width-1 {
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+
+.half-width-1 i {
+  margin-right: 10px; /* Space between the icon and the text */
+}
+
+.icon-container {
+  display: flex; /* Flex layout for horizontal alignment */
+  justify-content: space-between; /* Space between the left and right groups */
+  align-items: center; /* Vertically align icons */
+  padding: 10px; /* Add padding if needed */
+  padding-left: 0px;
+}
+
+.image-icons {
+  display: flex;
+  justify-content: flex-start; /* Align icons to the right */
+  gap: 10px;
+}
+
+.action-icons {
+  display: flex;
+  justify-content: flex-end; /* Align icons to the right */
+  gap: 10px;
+}
+
+.edit-icon, .delete-icon, .view-icon {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0 10px;
+}
+
+.view-icon {
+  color: green; /* blue for edit */
+}
+
+.edit-icon {
+  color: #007bff; /* blue for edit */
+}
+
+.delete-icon {
+  color: #dc3545; /* red for delete */
+}
+
+.view-icon:hover {
+  color: green;
+}
+
+.edit-icon:hover {
+  color: #0056b3;
+}
+
+.delete-icon:hover {
+  color: #c82333;
+}
+
+.disabled-icon {
+  opacity: 0.5; /* Make the icon look dimmed */
+  pointer-events: none; /* Disable clicking on the icon */
+}
+
+.button-margin{
+  margin-right: 10px;
+}
+
+.username {
+  font-weight: bold; /* Optional: Style the username */
+  margin-right: auto; /* Push it to the left */
+}
+
+.custom-dialog .p-dialog-mask {
+  background-color: rgba(0, 0, 0, 0.6); /* Darken the overlay */
+}
+
+/* Custom styles for the p-field */
+.p-field {
+  display: flex;
+  align-items: center; /* Align checkbox and label horizontally */
+  margin-bottom: 1.5rem; /* Space between form elements */
+}
+
+.p-field label {
+  font-weight: 600; /* Make labels bold */
+  font-size: 1rem;
+  color: #333;
+  margin-right: 10px; /* Space between label and checkbox */
+}
+
+.p-field input {
+  width: 20px;
+  height: 20px;
+}
+
+/* Add hover effect for the checkbox label */
+.p-field label:hover {
+  color: #007bff;
+}
+
+/* Custom dialog footer to align buttons to the bottom right */
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Space between buttons */
+  padding: 10px; /* Padding around buttons */
+}
+
+/* Optionally, you can add more styles for the buttons */
+.dialog-footer button {
+  min-width: 6rem; /* Set a minimum width for the buttons */
+}
+
+/* Ensure dialog content area doesn't overlap with footer */
+.p-dialog .p-dialog-content {
+  padding-bottom: 50px; /* Give some space for footer */
+}
+

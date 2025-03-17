@@ -1,0 +1,535 @@
+<div id="content-to-export" style="width: 215mm; height: 303mm; padding: 1mm; box-sizing: border-box; overflow: auto;"
+    *ngIf="saleBillPrint">
+    <div style="display: flex; align-items: center;">
+        <div style="padding-left: 20px; width: 18%;">
+            <img height="80px" src="../../assets/Logo1.png" />
+        </div>
+        <div style="width: 82%;">
+            <img height="80px" src="../../assets/FullNameLogo.png" />
+        </div>
+    </div>
+    <table align="left" cellspacing="0" border="0">
+        <colgroup width="31"></colgroup>
+        <colgroup width="70"></colgroup>
+        <colgroup width="217"></colgroup>
+        <colgroup width="84"></colgroup>
+        <colgroup width="62"></colgroup>
+        <colgroup width="14"></colgroup>
+        <colgroup width="70"></colgroup>
+        <colgroup width="76"></colgroup>
+        <colgroup width="146"></colgroup>
+        <tr>
+            <td height="20" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td colspan=5 height="20" align="left" valign=bottom>
+                <b>
+                    <font face="Tahoma" size=3>TAX INVOICE</font>
+                </b>
+            </td>
+            <td colspan=4 height="20" align="right" valign=bottom>
+                <b>
+                    <font face="Tahoma" size=3>GSTIN: 24ABLCS8146E1Z6</font>
+                </b>
+            </td>
+        </tr>
+        <tr>
+            <td height="18" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=3 rowspan=5 align="left" valign=top>
+                <font color="#000000">SOLD To,<br>{{saleBillPrint.partyName}}<br>{{saleBillPrint.address}} -
+                    {{saleBillPrint.pincode}}<br>Mo: {{includeMobile ? saleBillPrint.mobileNo : ''}}</font>
+            </td>
+            <!-- <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=3 align="left" valign=top><b>
+                        <font face="Tahoma">Sale Of :</font>
+                    </b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=2 align="left" valign=top>
+                    <font face="Verdana">ROUGH DIAMOND</font>
+                </td> -->
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                colspan=3 row align="left" valign=top><b>
+                    <font face="Tahoma">Invoice No :</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=2 align="left" valign=top>
+                <font face="Verdana">{{saleBillPrint.invoiceNo}}</font>
+            </td>
+        </tr>
+        <!-- <tr>
+                <td height="18" align="left" valign=bottom>
+                    <font color="#000000"><br></font>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=3 row align="left" valign=top><b>
+                        <font face="Tahoma">Invoice No :</font>
+                    </b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=2 align="left" valign=top>
+                    <font face="Verdana">{{saleBillPrint.invoiceNo}}</font>
+                </td>
+            </tr> -->
+        <tr>
+            <td height="20" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                colspan=3 align="left" valign=top><b>
+                    <font face="Tahoma">Invoice Date :</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=2 align="left" valign=top sdval="45901" sdnum="1033;0;MM.DD.YYYY;@">
+                <font face="Verdana" color="#000000">{{saleBillPrint.invoiceDate | date: 'dd/MM/yyyy'}}</font>
+            </td>
+        </tr>
+        <tr>
+            <td height="16" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                colspan=3 align="left" valign=top><b>
+                    <font face="Tahoma">Broker :</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=2 align="left" valign=top sdval="45901" sdnum="1033;0;MM.DD.YYYY;@">
+                <font face="Verdana" color="#000000">{{saleBillPrint.brokerName}}
+                </font>
+            </td>
+        </tr>
+        <tr>
+            <td height="16" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=5 align="left" valign=top><b>
+
+                </b></td>
+        </tr>
+        <tr>
+            <td height="18" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="center" valign=top><b>
+                    <font face="Tahoma">No</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=2 align="center" valign=top><b>
+                    <font face="Tahoma">Type</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top><b>
+                    <font face="Tahoma">Card No</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top><b>
+                    <font face="Tahoma">Paid Amount</font>
+                </b></td>
+        </tr>
+        <!-- <tr>
+                <td colspan="5">
+                    <table>
+                        <tr>
+                            <td height="20" align="left" valign=bottom>
+                                <font color="#000000"><br></font>
+                            </td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                colspan=3 rowspan=2 align="left" valign=top>
+                                <font color="#000000">Phone : {{saleBillPrint.mobileNo}}<br>
+                                    Email : {{saleBillPrint.emailId}}</font>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td colspan="5">
+                    <table>
+                        <tr *ngFor="let payment of saleBillPrint.saleBillPayments; let i = index">
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=2 align="center" valign=top>
+                    <font face="Verdana">{{payment.paymentNo}}</font>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    align="center" valign=top>
+                    <font face="Verdana">{{payment.paymentMode}}</font>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    align="center" valign=top>
+                    <font face="Verdana">{{payment.cardNo}}</font>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    align="left" valign=top>
+                    <font color="#000000">&#8377; {{payment.paidAmount}}</font>
+                </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr> -->
+        <tr *ngFor="let payment of saleBillPrint.saleBillPayments; let i = index">
+            <td *ngIf="i == 0" colspan=1 [attr.rowspan]="(paymentRowSpan + 1)" height="20" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td *ngIf="i == 0"
+                style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=3 [attr.rowspan]="paymentRowSpan" align="left" valign=top>
+                <font color="#000000">Pancard : {{saleBillPrint.panNo}}<br>
+                    Email : {{includeEmail ? saleBillPrint.emailId : ''}}</font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="center" valign=top>
+                <font face="Verdana">{{payment.paymentNo}}</font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=2 align="center" valign=top>
+                <font face="Verdana">{{payment.paymentMode}}</font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="center" valign=top>
+                <font face="Verdana">{{payment.cardNo}}</font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top>
+                <font color="#000000">&#8377; {{payment.paidAmount}}</font>
+            </td>
+        </tr>
+        <!-- <tr>
+                <td height="49" align="left" valign=top>
+                    <font color="#000000"><br></font>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=5 align="left" valign=top>
+                    <font color="#000000"><br></font>
+                </td>
+            </tr> -->
+        <tr>
+            <!-- <td height="21" align="left" valign=bottom>
+                    <font color="#000000"><br></font>
+                </td> -->
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="center" valign=top><b>
+                    <font face="Tahoma">Sr No.</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=2 align="left" valign=top><b>
+                    <font face="Tahoma">Description</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;"
+                align="left" valign=top><b>
+                    <font face="Tahoma">Carats</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; min-width: 65px;"
+                align="left" valign=top><b>
+                    <font face="Tahoma">Rate</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top><b>
+                    <font face="Tahoma">SGST</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top><b>
+                    <font face="Tahoma">CGST</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top><b>
+                    <font face="Tahoma">Total Amount</font>
+                </b></td>
+        </tr>
+        <tr *ngFor="let item of saleBillPrint.saleBillItems">
+            <td height="20" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="center" valign=top sdval="1" sdnum="1033;0;0">
+                <font face="Verdana" color="#000000">{{item.serialNo}}</font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=2 align="left" valign=top>
+                <font face="Verdana">{{item.itemName}}</font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top sdval="7012.35" sdnum="1033;0;0.00">
+                <font face="Verdana" color="#000000">{{item.carratQty}}</font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top sdval="7012.35" sdnum="1033;0;0.00">
+                <font face="Verdana" color="#000000">{{item.rate}}</font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top sdval="7012.35" sdnum="1033;0;0.00">
+                <font face="Verdana" color="#000000">{{item.sgst}}</font>
+            </td>
+            <!-- <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    align="left" valign=top>
+                    <font face="Microsoft Sans Serif">&#8377;</font>
+                </td> -->
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top sdval="1000" sdnum="1033;0;#,##0.00">
+                <font face="Verdana" color="#000000">{{item.cgst}}</font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top>
+                <font color="#000000">&#8377; {{item.totalAmount}}</font>
+            </td>
+        </tr>
+        <tr>
+            <td height="80" align="left" valign=top>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=2 align="left" valign=top>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top>
+                <font color="#000000"><br></font>
+            </td>
+        </tr>
+        <tr>
+            <td height="20" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=3 align="right" valign=top><b>
+                    <font face="Tahoma">Total :</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top sdval="7012.35" sdnum="1033;0;0.00"><b>
+                    <font face="Tahoma" color="#000000">{{saleBillPrint.totalQty}}</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=3 align="right" valign=top>
+                <!-- <font color="#000000"><br></font> -->
+                <font face="Tahoma">Total Amount before Tax </font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top>
+                <font color="#000000">&#8377; {{saleBillPrint.billAmountWithoutTax}}</font>
+            </td>
+        </tr>
+        <tr>
+            <td height="20" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=4 align="right"
+                valign=top>
+                <font face="Verdana">CGST </font>
+            </td>
+            <!-- <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    align="left" valign=top sdval="0.00125" sdnum="1033;0;0.000%">
+                    <font face="Verdana" color="#000000">0.125%</font>
+                </td> -->
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top>
+                <font color="#000000">&#8377; {{saleBillPrint.cgst}}</font>
+            </td>
+        </tr>
+        <tr>
+            <td height="20" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=4 align="right"
+                valign=top>
+                <font face="Verdana">SGST </font>
+            </td>
+            <!-- <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    align="left" valign=top sdval="0.00125" sdnum="1033;0;0.000%">
+                    <font face="Verdana" color="#000000">0.125%</font>
+                </td> -->
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top>
+                <font color="#000000">&#8377; {{saleBillPrint.sgst}}</font>
+            </td>
+        </tr>
+        <!-- <tr>
+                <td height="20" align="left" valign=bottom>
+                    <font color="#000000"><br></font>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    align="left" valign=bottom>
+                    <font color="#000000"><br><img src="result_htm_cfb545170fb9e932.png" width=3 height=1 hspace=33
+                            vspace=9>
+                    </font>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign=bottom>
+                    <font color="#000000"><br></font>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign=bottom>
+                    <font color="#000000"><br></font>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=4 align="right"
+                    valign=top>
+                    <font face="Verdana">IGST </font>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    align="left" valign=top>
+                    <font color="#000000">&#8377; {{saleBillPrint.igst}}</font>
+                </td>
+            </tr> -->
+        <tr>
+            <td height="20" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=7 align="right" valign=top>
+                <font face="Verdana">Round Off</font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top>
+                <font color="#000000">&#8377; {{saleBillPrint.roundupAmount}}</font>
+            </td>
+        </tr>
+        <tr>
+            <td height="20" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=7 align="right" valign=top>
+                <font face="Verdana">Total Invoice Value :</font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="left" valign=top><b>
+                    <font face="Tahoma">&#8377; {{saleBillPrint.billAmount}}</font>
+                </b></td>
+        </tr>
+        <tr>
+            <td height="18" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=8 align="left" valign=top><b>
+                    <font face="Tahoma">Total Rs in words : {{saleBillPrint.billAmountInWords}}</font>
+                </b></td>
+        </tr>
+        <tr>
+            <td height="139" align="left" valign=top>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=8 align="left" valign=top>
+                <!-- <font color="#000000">Payment Instructions : INDUSIND BANK, Current A/C No : 259825607539, IFSC Code
+                        : INDB0001058<br>&quot; The diamonds herein invoiced have been purchased from legimate source
+                        not involved in conflict and in compliance with United Nations resolutions, the seller hereby
+                        gurantees these diamonds are conflict free based on personal knowledge and / or written
+                        gurantees provided by the supplier of these diamonds &quot;<br>to the best of our knowledge the
+                        diamonds herein invoiced have not been obtain in violation of applicable national laws and/or
+                        sanctions by the U.S. Department of treasury's office assets control ( OFAC ) and have not
+                        orginated from the marange region of Zimbabwe or from Russia.<br>The seller hereby gurantees
+                        that these diamonds are conflict free and are genuine and naturally occuring stones and have not
+                        been clarity enhances in any way.<br>We Certify above statements based on personal knowledge and
+                        / or gurantees provided by the supplier of these diamonds</font> -->
+                <font color="#000000">
+                    Invoice Terms:
+                    <br>1.“ The Diamonds herein invoiced have been purchased from legitimate sources not involved in
+                    funding conflict in compliance with United Nation resolutions. The seller hereby guarantees that
+                    these diamonds are conflict free, based on personal knowledge, and/or written guarantees
+                    provided by by the supplier of these diamonds.”
+                    <br>2. “The diamonds herein invoiced are exclusively of natural origin and untreated based on
+                    personal knowledge and/or written guarantees provided by the supplier of these diamonds.”
+                    <br>3.“The acceptance of goods herein invoiced will as per WFDB guideline.”
+                    <br>4.“To the best of our knowledge the diamonds herein invoiced have not been obtained in
+                    violation
+                    of applicable national laws and/or sanctions by U.S. Department of treasury “s Office of foreign
+                    Assets Control (OFAC ) and have not originated from Marange region of Zimbambwe.”
+                    <br>5.Goods Sold & Delivered At Surat
+                    <br>6. I understand that your entity has an obligation to comply with the laws
+                    and regulations on money laundering and terrorist financing. I assure you that the funds used to
+                    purchase your products are from legitimate sources. If necessary, I am willing to provide any
+                    additional documentation or information to support the
+                    legitimacy of the funds. I declare that the funds are legitimate and do not have any illegal
+                    origin. After Purchase No Any Dispute of Transaction Will be accepatance.
+                    <br>7.Applicable Indian Law shall Govern the transaction, IN case Of Any Dispute, Courts In
+                    surat only shall have
+                    jurisdiction.
+                </font>
+            </td>
+        </tr>
+        <tr>
+            <td height="31" align="left" valign=middle>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=4 align="left" valign=top><b>
+                    <font face="Tahoma" size=1>Receiver's Signature</font>
+                </b></td>
+            <!-- <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=4 rowspan=2 align="left" valign=top>
+                    <font color="#000000"><br></font>
+                </td> -->
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=6 rowspan=2 align="center" valign=top>
+                <font color="#000000"><b>SUNSPARKLE DIAM PRIVATE LIMITED</b><br>Authorised Signatory</font>
+            </td>
+        </tr>
+        <tr>
+            <td height="64" align="left" valign=top>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=4 align="left" valign=top>
+                <font color="#000000"><br></font>
+            </td>
+        </tr>
+        <tr>
+            <td height="14" align="left" valign=bottom>
+                <font color="#000000"><br></font>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=7 align="center" valign=top><b>
+                    <font face="Calibri" style="font-size: 9px;">Off NO-214, 2nd Floor, H. No. 1843 to 1846, Sunstar
+                        Comm Soc,
+                        Bhojabhai ni sheri, Suryapur Vir Vyayam School, Mahidharpura, Surat, Gujarat, 395003</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                colspan=3 align="center" valign=top><b>
+                    <font face="Calibri" style="font-size: 9px;">CIN: U32112GJ2023PTC145114</font>
+                </b></td>
+        </tr>
+        <tr>
+            <td colspan=10 height="17" align="center" valign=top><b>
+                    <font face="Calibri" size=1>Subject to Surat Jurisdiction</font>
+                </b></td>
+        </tr>
+    </table>
+</div>

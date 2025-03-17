@@ -1,0 +1,201 @@
+/* General Container Styling */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  
+  h2 {
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 20px;
+  }
+  
+  /* Form Group Styling */
+  .form-group label {
+    font-weight: normal;
+    position: relative;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Button Styling */
+  button {
+    margin-top: 15px;
+  }
+  
+  /* Table Styling */
+  .items-table {
+    overflow-x: auto;
+  }
+  
+  .table-wrapper {
+    overflow-y: auto;
+    max-height: 300px; /* Adjust height to make it scrollable */
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .table th,
+  .table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #f4f4f4;
+  }
+  
+  .table tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  /* Ensuring Minimum Size for Input Fields in the Table */
+  .table input {
+    width: 100%;
+    min-width: 80px; /* Set minimum width */
+    min-height: 40px; /* Set minimum height for better readability */
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  /* Specific Minimum Size for Item Inputs (for readability) */
+  .table input[type="text"], 
+  .table input[type="number"] {
+    min-width: 100px; /* Ensure input fields are wide enough */
+    min-height: 40px; /* Height to make the fields easily readable */
+  }
+  
+  /* Button Styling */
+  button.btn {
+    margin: 5px 0;
+  }
+  
+  /* Make the submit button take full width */
+  button.btn-lg {
+    width: 100%;
+  }
+  
+  /* Responsive Table for Small Screens */
+  @media (max-width: 600px) {
+    .form-group input,
+    .form-group select,
+    .table input {
+      padding: 10px;
+    }
+  
+    .table-wrapper {
+      max-height: 200px;
+    }
+  
+    /* Adjust the font size for smaller screens to maintain readability */
+    .table input {
+      font-size: 14px;
+    }
+
+    button .pi {
+        font-size: 18px; /* Increase icon size */
+      }
+      
+      button i.pi-pencil {
+        color: #ffc107; /* Yellow color for edit icon */
+      }
+      
+      button i.pi-times {
+        color: #dc3545; /* Red color for delete icon */
+      }
+      
+      button {
+        padding: 6px 12px; /* Adjust padding to fit icons */
+      }
+  }
+
+ /* Ensure consistent styling for all input fields */
+.form-control {
+    padding: 10px; /* Padding for all inputs */
+    border-radius: 4px; /* Uniform border radius for smooth corners */
+    border: 1px solid #ccc; /* Standard border */
+    font-size: 14px; /* Same font size for all inputs */
+    width: 100%;
+  }
+  
+  /* Adjust Flexbox container for inputs to align them correctly */
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    width: 100%;
+  }
+
+  .col-6 {
+    flex: 1;
+    width: 48%;  /* Each takes up 48% of the row */
+    margin: 0;
+    padding: 0%;
+  }
+  
+  /* Fix for card styling */
+  .p-card .card-body {
+    padding: 15px;  /* Padding around card content */
+  }
+  
+  .p-card {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .p-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Styling Action Icons (Edit and Delete) */
+  .action-icons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .edit-icon, .delete-icon {
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .edit-icon {
+    color: #ffc107;
+  }
+  
+  .delete-icon {
+    color: #dc3545;
+  }
+  
+  .edit-icon:hover {
+    color: #ff9800;
+  }
+  
+  .delete-icon:hover {
+    color: #e53935;
+  }
+  
+  .is-invalid {
+    border: 1px solid red;
+  }
+  
